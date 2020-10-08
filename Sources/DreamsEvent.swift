@@ -12,11 +12,18 @@
 import Foundation
 
 enum DreamsEvent {
+
+    /**
+     The javascript request events supported.
+     */
     enum Request: String {
         case updateAccessToken
         case updateLocale
     }
 
+    /**
+     The javascript response events supported.
+     */
     enum Response: String, CaseIterable {
         case onAccessTokenDidExpired
         case onOnboardingDidComplete

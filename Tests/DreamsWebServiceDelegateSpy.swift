@@ -16,15 +16,15 @@ class DreamsWebServiceDelegateSpy: DreamsWebServiceDelegate {
 
     var events: [[String: Any?]] = []
 
-    func dreamsWebServiceDidPrepareRequest(urlRequest: URLRequest) {
+    func dreamsWebServiceDidPrepareRequest(service: DreamsWebServiceType, urlRequest: URLRequest) {
         events.append(["request": urlRequest])
     }
 
-    func dreamsWebServiceDidPrepareMessage(jsString: String) {
+    func dreamsWebServiceDidPrepareMessage(service: DreamsWebServiceType, jsString: String) {
         events.append(["message": jsString])
     }
 
-    func dreamsWebServiceDidReceiveMessage(event: DreamsEvent.Response, jsonObject: JSONObject?) {
+    func dreamsWebServiceDidReceiveMessage(service: DreamsWebServiceType, event: DreamsEvent.Response, jsonObject: JSONObject?) {
         events.append(["event": event, "jsonObject": jsonObject])
     }
 }

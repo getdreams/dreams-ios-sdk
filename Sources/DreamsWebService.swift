@@ -14,22 +14,6 @@ import WebKit
 
 typealias JSONObject = [String: Any]
 
-protocol DreamsWebServiceDelegate {
-    func dreamsWebServiceDidPrepareRequest(urlRequest: URLRequest)
-    func dreamsWebServiceDidPrepareMessage(jsString: String)
-    func dreamsWebServiceDidReceiveMessage(event: DreamsEvent.Response, jsonObject: JSONObject?)
-}
-
-protocol DreamsWebServiceType: WKScriptMessageHandler {
-
-    var delegate: DreamsWebServiceDelegate? { get set }
-
-    func load(url: URL, method: String, body: JSONObject?)
-    func prepareRequestMessage(event: DreamsEvent.Request, with jsonObject: JSONObject?)
-    func handleResponseMessage(name: String, body: Any?)
-    func decode<T: Decodable>(object: JSONObject) -> T?
-}
-
 class DreamsWebService: NSObject, DreamsWebServiceType {
 
     var delegate: DreamsWebServiceDelegate?
@@ -41,23 +25,18 @@ class DreamsWebService: NSObject, DreamsWebServiceType {
         if let httpBody = body {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: httpBody)
         }
-        delegate?.dreamsWebServiceDidPrepareRequest(urlRequest: urlRequest)
+        delegate?.dreamsWebServiceDidPrepareRequest(service: self, urlRequest: urlRequest)
     }
 
     func prepareRequestMessage(event: DreamsEvent.Request, with jsonObject: JSONObject?) {
         guard let jsString = encode(event: event, with: jsonObject) else { return }
-        delegate?.dreamsWebServiceDidPrepareMessage(jsString: jsString)
+        delegate?.dreamsWebServiceDidPrepareMessage(service: self, jsString: jsString)
     }
 
     func handleResponseMessage(name: String, body: Any?) {
         let (e, jsonObject) = transform(name: name, body: body)
         guard let event = e else { return }
-        delegate?.dreamsWebServiceDidReceiveMessage(event: event, jsonObject: jsonObject)
-    }
-
-    func decode<T: Decodable>(object: JSONObject) -> T? {
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: object) else { return nil }
-        return try? JSONDecoder().decode(T.self, from: jsonData)
+        delegate?.dreamsWebServiceDidReceiveMessage(service: self, event: event, jsonObject: jsonObject)
     }
 }
 

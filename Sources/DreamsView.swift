@@ -12,11 +12,6 @@
 import UIKit
 import WebKit
 
-public protocol DreamsViewDelegate: class {
-    func dreamsViewDelegateDidReceiveAccessTokenExpired(view: DreamsView)
-    func dreamsViewDelegateDidReceiveOffboardingCompleted(view: DreamsView)
-}
-
 public class DreamsView: UIView {
 
     public weak var delegate: DreamsViewDelegate?
@@ -41,9 +36,9 @@ public class DreamsView: UIView {
     }
 }
 
-public extension DreamsView {
+extension DreamsView: DreamsViewType {
 
-    func open(accessToken: String, locale: Locale) {
+    public func open(accessToken: String, locale: Locale) {
         guard
             let clientId = dreams.clientId,
             let baseURL = dreams.baseURL else { return }
@@ -56,12 +51,12 @@ public extension DreamsView {
         dreamsWebService.load(url: baseURL, method: "POST", body: body)
     }
 
-    func update(accessToken: String) {
+    public func update(accessToken: String) {
         let jsonObject: JSONObject = ["accessToken": accessToken]
         send(event: .updateAccessToken, with: jsonObject)
     }
 
-    func update(locale: Locale) {
+    public func update(locale: Locale) {
         let jsonObject: JSONObject = ["locale": locale.identifier]
         send(event: .updateLocale, with: jsonObject)
     }
@@ -109,15 +104,15 @@ private extension DreamsView {
 
 extension DreamsView: DreamsWebServiceDelegate {
 
-    func dreamsWebServiceDidPrepareRequest(urlRequest: URLRequest) {
+    func dreamsWebServiceDidPrepareRequest(service: DreamsWebServiceType, urlRequest: URLRequest) {
         webView.load(urlRequest)
     }
 
-    func dreamsWebServiceDidPrepareMessage(jsString: String) {
+    func dreamsWebServiceDidPrepareMessage(service: DreamsWebServiceType, jsString: String) {
         webView.evaluateJavaScript(jsString)
     }
 
-    func dreamsWebServiceDidReceiveMessage(event: DreamsEvent.Response, jsonObject: JSONObject?) {
+    func dreamsWebServiceDidReceiveMessage(service: DreamsWebServiceType, event: DreamsEvent.Response, jsonObject: JSONObject?) {
         handle(event: event, with: jsonObject)
     }
 }
