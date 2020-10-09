@@ -26,12 +26,17 @@ If you prefer not to use Cocoapods, you can simply integrate Dreams into your pr
     Dreams.setup(clientId: "your_client_id", baseURL: "your_base_url")
     ```
 
-3. Create an instance of a `DreamsView` and add it to the view hierarchy .
+3. Create an instance of a `DreamsView` and add it to the view hierarchy.
     ```swift
     let dreamsView = DreamsView()
     self.view.addSubview(dreamsView)
     ```
-4. Call the `open(accessToken:locale)` method.
+4. Set the delegate and implement the delegate methods.
+    ```swift
+    dreamsView.delegate = self
+    ```
+
+5. Call the `open(accessToken:locale)` method.
     ```swift
     dreamsView.open(accessToken: "access_token", locale: "some_locale")
     ```
