@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.summary        = "Dreams iOS SDK"
 
   s.homepage       = "http://getdreams.com"
-  s.license        = ""
+  s.license        = { :type => 'MPL 2.0', :file => 'LICENSE' }
   s.author         = { "Dreams AB" => "hello@getdreams.com" }
   s.platform       = :ios, "10.0"
 
