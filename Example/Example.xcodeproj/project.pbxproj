@@ -14,6 +14,7 @@
 		FA34400F251CE2740073F33E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA34400D251CE2740073F33E /* Main.storyboard */; };
 		FA344011251CE2770073F33E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA344010251CE2770073F33E /* Assets.xcassets */; };
 		FA344014251CE2770073F33E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA344012251CE2770073F33E /* LaunchScreen.storyboard */; };
+		FAD7F07225419E3B00B9F799 /* Dreams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD7F07125419E3B00B9F799 /* Dreams.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		FA344010251CE2770073F33E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA344013251CE2770073F33E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA344015251CE2770073F33E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAD7F07125419E3B00B9F799 /* Dreams.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Dreams.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAD7F07225419E3B00B9F799 /* Dreams.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +47,7 @@
 			children = (
 				FA344006251CE2740073F33E /* Example */,
 				FA344005251CE2740073F33E /* Products */,
+				FAD7F07025419E3B00B9F799 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +72,14 @@
 				FA344015251CE2770073F33E /* Info.plist */,
 			);
 			path = Example;
+			sourceTree = "<group>";
+		};
+		FAD7F07025419E3B00B9F799 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAD7F07125419E3B00B9F799 /* Dreams.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
