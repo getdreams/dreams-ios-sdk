@@ -61,12 +61,12 @@ class DreamsWebServiceTests: XCTestCase {
         let service = DreamsWebService()
         service.delegate = spyDelegate
 
-        let jsonObject: JSONObject = ["accessToken": "someAccessToken"]
-        service.prepareRequestMessage(event: .updateAccessToken, with: jsonObject)
+        let jsonObject: JSONObject = ["idToken": "someIdToken"]
+        service.prepareRequestMessage(event: .updateIdToken, with: jsonObject)
 
         let event = spyDelegate.events.last
         let message = event?["message"] as! String
-        let expectedMessage = "updateAccessToken('{\"accessToken\":\"someAccessToken\"}')"
+        let expectedMessage = "updateIdToken('{\"idToken\":\"someIdToken\"}')"
 
         XCTAssertEqual(message, expectedMessage)
     }
@@ -75,11 +75,11 @@ class DreamsWebServiceTests: XCTestCase {
         let spyDelegate = DreamsWebServiceDelegateSpy()
         let service = DreamsWebService()
         service.delegate = spyDelegate
-        service.handleResponseMessage(name: "onAccessTokenDidExpired", body: nil)
+        service.handleResponseMessage(name: "onIdTokenDidExpire", body: nil)
 
         let event = spyDelegate.events.last
         let eventResponseType = event?["event"] as! DreamsEvent.Response
         
-        XCTAssertEqual(eventResponseType, .onAccessTokenDidExpired)
+        XCTAssertEqual(eventResponseType, .onIdTokenDidExpire)
     }
 }
