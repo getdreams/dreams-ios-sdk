@@ -37,6 +37,16 @@ class DreamsViewTests: XCTestCase {
         service.handleResponseMessage(name: "onIdTokenDidExpire", body: nil)
         XCTAssertTrue(delegate.idTokenExpiredWasCalled)
 
+        service.handleResponseMessage(name: "onTelemetryEvent", body: ["name": "test_event", "payload": ["test": "test"]])
+        XCTAssertTrue(delegate.telemetryEventWasCalled)
+
+        let lastTelemetryEvent = delegate.telemetryEvents.last
+        let name = lastTelemetryEvent?["name"] as? String
+        let payload = lastTelemetryEvent?["payload"] as? [String: Any]
+
+        XCTAssertEqual(name, "test_event")
+        XCTAssertEqual(NSDictionary(dictionary: payload!), NSDictionary(dictionary: ["test": "test"]))
+
         service.handleResponseMessage(name: "onOnboardingDidComplete", body: nil)
         XCTAssertTrue(delegate.offboardingWasCalled)
     }

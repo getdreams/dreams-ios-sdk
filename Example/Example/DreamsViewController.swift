@@ -39,6 +39,10 @@ extension DreamsViewController: DreamsViewDelegate {
         // set new idToken
     }
 
+    func dreamsViewDelegateDidReceiveTelemetryEvent(view: DreamsView, name: String, payload: [String : Any]) {
+        // telemetry event received
+    }
+
     func dreamsViewDelegateDidReceiveOffboardingCompleted(view: DreamsView) {
         // offboarding 
     }

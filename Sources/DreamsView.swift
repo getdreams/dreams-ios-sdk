@@ -48,6 +48,7 @@ extension DreamsView: DreamsViewType {
             "locale": locale.identifier,
             "clientId": clientId
         ]
+
         dreamsWebService.load(url: baseURL, method: "POST", body: body)
     }
 
@@ -95,6 +96,11 @@ private extension DreamsView {
         switch event {
         case .onIdTokenDidExpire:
             delegate?.dreamsViewDelegateDidReceiveIdTokenExpired(view: self)
+        case .onTelemetryEvent:
+            guard let name = jsonObject?["name"] as? String,
+                  let payload = jsonObject?["payload"] as? JSONObject else { return }
+
+            delegate?.dreamsViewDelegateDidReceiveTelemetryEvent(view: self, name: name, payload: payload)
         case .onOnboardingDidComplete:
             delegate?.dreamsViewDelegateDidReceiveOffboardingCompleted(view: self)
         }
