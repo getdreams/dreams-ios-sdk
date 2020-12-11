@@ -18,10 +18,10 @@ import Foundation
 public protocol DreamsViewDelegate: class {
 
     /**
-     Delegate callback when the access token has expired.
+     Delegate callback when the idToken has expired.
      - parameter view: The dreams view invoking the delegate method.
      */
-    func dreamsViewDelegateDidReceiveAccessTokenExpired(view: DreamsView)
+    func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView)
 
     /**
      Delegate callback when an offboarding has been completed.

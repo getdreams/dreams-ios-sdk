@@ -38,22 +38,22 @@ public class DreamsView: UIView {
 
 extension DreamsView: DreamsViewType {
 
-    public func open(accessToken: String, locale: Locale) {
+    public func open(idToken: String, locale: Locale) {
         guard
             let clientId = dreams.clientId,
             let baseURL = dreams.baseURL else { return }
 
         let body = [
-            "accessToken": accessToken,
+            "idToken": idToken,
             "locale": locale.identifier,
             "clientId": clientId
         ]
         dreamsWebService.load(url: baseURL, method: "POST", body: body)
     }
 
-    public func update(accessToken: String) {
-        let jsonObject: JSONObject = ["accessToken": accessToken]
-        send(event: .updateAccessToken, with: jsonObject)
+    public func update(idToken: String) {
+        let jsonObject: JSONObject = ["idToken": idToken]
+        send(event: .updateIdToken, with: jsonObject)
     }
 
     public func update(locale: Locale) {
@@ -93,8 +93,8 @@ private extension DreamsView {
 
     func handle(event: DreamsEvent.Response, with jsonObject: JSONObject?) {
         switch event {
-        case .onAccessTokenDidExpired:
-            delegate?.dreamsViewDelegateDidReceiveAccessTokenExpired(view: self)
+        case .onIdTokenDidExpire:
+            delegate?.dreamsViewDelegateDidReceiveIdTokenExpired(view: self)
         case .onOnboardingDidComplete:
             delegate?.dreamsViewDelegateDidReceiveOffboardingCompleted(view: self)
         }

@@ -17,7 +17,7 @@ enum DreamsEvent {
      The javascript request events supported.
      */
     enum Request: String {
-        case updateAccessToken
+        case updateIdToken
         case updateLocale
     }
 
@@ -25,7 +25,7 @@ enum DreamsEvent {
      The javascript response events supported.
      */
     enum Response: String, CaseIterable {
-        case onAccessTokenDidExpired
+        case onIdTokenDidExpire
         case onOnboardingDidComplete
     }
 }

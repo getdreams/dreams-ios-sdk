@@ -14,11 +14,11 @@ import Foundation
 
 class DreamsViewDelegateSpy: DreamsViewDelegate {
 
-    var accessTokenExpiredWasCalled: Bool = false
+    var idTokenExpiredWasCalled: Bool = false
     var offboardingWasCalled: Bool = false
 
-    func dreamsViewDelegateDidReceiveAccessTokenExpired(view: DreamsView) {
-        accessTokenExpiredWasCalled = true
+    func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView) {
+        idTokenExpiredWasCalled = true
     }
 
     func dreamsViewDelegateDidReceiveOffboardingCompleted(view: DreamsView) {

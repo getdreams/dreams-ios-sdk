@@ -24,7 +24,7 @@ final class DreamsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dreamsView.open(accessToken: "accessToken", locale: Locale.current)
+        dreamsView.open(idToken: "idToken", locale: Locale.current)
     }
 
     @objc
@@ -35,8 +35,8 @@ final class DreamsViewController: UIViewController {
 
 extension DreamsViewController: DreamsViewDelegate {
 
-    func dreamsViewDelegateDidReceiveAccessTokenExpired(view: DreamsView) {
-        // set new accesstoken
+    func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView) {
+        // set new idToken
     }
 
     func dreamsViewDelegateDidReceiveOffboardingCompleted(view: DreamsView) {

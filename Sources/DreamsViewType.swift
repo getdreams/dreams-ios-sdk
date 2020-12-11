@@ -15,16 +15,16 @@ public protocol DreamsViewType {
 
     /**
      Open the dreams view.
-     - parameter accessToken: The accessToken.
+     - parameter idToken: The idToken.
      - parameter locale: The users locale.
      */
-    func open(accessToken: String, locale: Locale)
+    func open(idToken: String, locale: Locale)
 
     /**
-     Update the accessToken.
-     - parameter accessToken: The new accessToken.
+     Update the idToken.
+     - parameter idToken: The new idToken.
      */
-    func update(accessToken: String)
+    func update(idToken: String)
 
     /**
      Update the locale.

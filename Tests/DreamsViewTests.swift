@@ -34,8 +34,8 @@ class DreamsViewTests: XCTestCase {
         let delegate = DreamsViewDelegateSpy()
         dreamsView.delegate = delegate
 
-        service.handleResponseMessage(name: "onAccessTokenDidExpired", body: nil)
-        XCTAssertTrue(delegate.accessTokenExpiredWasCalled)
+        service.handleResponseMessage(name: "onIdTokenDidExpire", body: nil)
+        XCTAssertTrue(delegate.idTokenExpiredWasCalled)
 
         service.handleResponseMessage(name: "onOnboardingDidComplete", body: nil)
         XCTAssertTrue(delegate.offboardingWasCalled)
@@ -47,12 +47,12 @@ class DreamsViewTests: XCTestCase {
 
         let dreamsView = DreamsView()
         dreamsView.dreamsWebService.delegate = delegate
-        dreamsView.open(accessToken: "accessToken", locale: locale)
+        dreamsView.open(idToken: "idToken", locale: locale)
 
         let event = delegate.events.last
         let request = event?["request"] as! URLRequest
         let httpBody = try! JSONSerialization.jsonObject(with: request.httpBody!) as! [String : Any]
-        let expectedBody: [String: Any] = ["accessToken": "accessToken", "locale": "sv_SE", "clientId": "clientId"]
+        let expectedBody: [String: Any] = ["idToken": "idToken", "locale": "sv_SE", "clientId": "clientId"]
 
         XCTAssertEqual(delegate.events.count, 1)
         XCTAssertEqual(request.url?.absoluteString, "https://www.getdreams.com")
@@ -60,23 +60,23 @@ class DreamsViewTests: XCTestCase {
         XCTAssertEqual(NSDictionary(dictionary: expectedBody), NSDictionary(dictionary: httpBody))
     }
 
-    func testUpdateAccessTokenRequest() {
+    func testUpdateIdTokenRequest() {
         let service = DreamsWebServiceSpy()
         let dreamsView = DreamsView()
         dreamsView.dreamsWebService = service
         dreamsView.dreamsWebService.delegate = dreamsView
-        dreamsView.update(accessToken: "anotherAccessToken")
+        dreamsView.update(idToken: "anotherIdToken")
 
         let event = service.events.last
         let type = event?["event"] as! DreamsEvent.Request
         let jsonObject = event?["jsonObject"] as! JSONObject
 
         XCTAssertEqual(service.events.count, 1)
-        XCTAssertEqual(type, .updateAccessToken)
-        XCTAssertEqual(jsonObject["accessToken"] as! String, "anotherAccessToken")
+        XCTAssertEqual(type, .updateIdToken)
+        XCTAssertEqual(jsonObject["idToken"] as! String, "anotherIdToken")
     }
 
-    func testUpdateAccessTokenJSMessage() {
+    func testUpdateIdTokenJSMessage() {
         let spyDelegate = DreamsWebServiceDelegateSpy()
         let service = DreamsWebServiceSpy()
 
@@ -85,11 +85,11 @@ class DreamsViewTests: XCTestCase {
         dreamsView.dreamsWebService.delegate = dreamsView
 
         service.delegate = spyDelegate
-        dreamsView.update(accessToken: "anotherAccessToken")
+        dreamsView.update(idToken: "anotherIdToken")
 
         let event = spyDelegate.events.last
         let message = event?["message"] as! String
-        let expectedJSMessage = "updateAccessToken('{\"accessToken\":\"anotherAccessToken\"}')"
+        let expectedJSMessage = "updateIdToken('{\"idToken\":\"anotherIdToken\"}')"
         XCTAssertEqual(expectedJSMessage, message)
         XCTAssertEqual(service.events.count, 1)
     }
