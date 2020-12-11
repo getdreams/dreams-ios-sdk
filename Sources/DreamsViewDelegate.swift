@@ -24,6 +24,14 @@ public protocol DreamsViewDelegate: class {
     func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView)
 
     /**
+     Delegate callback when a telemetry event is received.
+     - parameter view: The dreams view invoking the delegate method.
+     - parameter name: The name of the received telemetry event.
+     - parameter payload: The payload containing telemetry event data.
+     */
+    func dreamsViewDelegateDidReceiveTelemetryEvent(view: DreamsView, name: String, payload: [String: Any])
+
+    /**
      Delegate callback when an offboarding has been completed.
      - parameter view: The dreams view invoking the delegate method.
      */

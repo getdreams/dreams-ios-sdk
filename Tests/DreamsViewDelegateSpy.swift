@@ -15,10 +15,19 @@ import Foundation
 class DreamsViewDelegateSpy: DreamsViewDelegate {
 
     var idTokenExpiredWasCalled: Bool = false
+    var telemetryEventWasCalled: Bool = false
     var offboardingWasCalled: Bool = false
+
+    var telemetryEvents: [[String: Any]] = []
 
     func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView) {
         idTokenExpiredWasCalled = true
+    }
+
+    func dreamsViewDelegateDidReceiveTelemetryEvent(view: DreamsView, name: String, payload: [String: Any]) {
+        telemetryEventWasCalled = true
+        let telemetryEvent: [String: Any] = ["name": name, "payload": payload]
+        telemetryEvents.append(telemetryEvent)
     }
 
     func dreamsViewDelegateDidReceiveOffboardingCompleted(view: DreamsView) {
