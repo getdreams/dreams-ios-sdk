@@ -23,7 +23,7 @@ protocol DreamsWebServiceType: WKScriptMessageHandler {
      Load URL with HTTP method and an optional body.
      - parameter url: The URL to load.
      - parameter method: The HTTP method to perform.
-     - parameter (optional) The json body to send.
+     - parameter body: (optional) The json body to send.
 
      # Notes: #
      If the delegate property is set, calling this function will trigger the `dreamsWebServiceDidPrepareRequest:service:urlRequest: delegate callback`
@@ -33,7 +33,7 @@ protocol DreamsWebServiceType: WKScriptMessageHandler {
     /**
      Prepare request message to be sent to the web view.
      - parameter event: The request event.
-     - parameter (optional) The json body to send.
+     - parameter body: (optional) The json body to send.
 
      # Notes: #
      If the delegate property is set, calling this function will trigger the `dreamsWebServiceDidPrepareMessage(:service:jsString:) delegate callback`.
@@ -43,7 +43,7 @@ protocol DreamsWebServiceType: WKScriptMessageHandler {
     /**
      Handle the response message from the web view.
      - parameter name: The message name (Usually the name property from the WKScriptMessage).
-     - parameter (optional) The message body (Usually the body property from the WKScriptMessage).
+     - parameter body: (optional) The message body (Usually the body property from the WKScriptMessage).
 
      # Notes: #
      If the delegate property is set, calling this function will trigger the `dreamsWebServiceDidReceiveMessage(:service:event:jsonObject:) delegate callback`.

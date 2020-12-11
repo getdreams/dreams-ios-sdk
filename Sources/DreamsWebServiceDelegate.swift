@@ -40,7 +40,7 @@ protocol DreamsWebServiceDelegate {
      Delegate callback as a result of  the WKScriptHandlers `userContentController(_:didReceive:)` function.
      - parameter service: The dreams web service object invoking the delegate method.
      - parameter event: The received DreamsEvent.Response type.
-     - parameter (optional) jsonObject: The received JSONObject.
+     - parameter jsonObject: (optional) The received JSONObject.
      */
     func dreamsWebServiceDidReceiveMessage(service: DreamsWebServiceType, event: DreamsEvent.Response, jsonObject: JSONObject?)
 }
