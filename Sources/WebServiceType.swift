@@ -1,5 +1,5 @@
 //
-//  DreamsWebServiceType
+//  WebServiceType
 //  Dreams
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,12 +12,12 @@
 import Foundation
 import WebKit
 
-protocol DreamsWebServiceType: WKScriptMessageHandler {
+protocol WebServiceType: WKScriptMessageHandler {
 
     /**
-     The object that acts as the delegate of the dreams web service.
+     The object that acts as the delegate of the web service.
      */
-    var delegate: DreamsWebServiceDelegate? { get set }
+    var delegate: WebServiceDelegate? { get set }
 
     /**
      Load URL with HTTP method and an optional body.
@@ -26,7 +26,7 @@ protocol DreamsWebServiceType: WKScriptMessageHandler {
      - parameter body: (optional) The json body to send.
 
      # Notes: #
-     If the delegate property is set, calling this function will trigger the `dreamsWebServiceDidPrepareRequest:service:urlRequest: delegate callback`
+     If the delegate property is set, calling this function will trigger the `webServiceDidPrepareRequest:service:urlRequest: delegate callback`
      */
     func load(url: URL, method: String, body: JSONObject?)
 
@@ -36,9 +36,9 @@ protocol DreamsWebServiceType: WKScriptMessageHandler {
      - parameter body: (optional) The json body to send.
 
      # Notes: #
-     If the delegate property is set, calling this function will trigger the `dreamsWebServiceDidPrepareMessage(:service:jsString:) delegate callback`.
+     If the delegate property is set, calling this function will trigger the `webServiceDidPrepareMessage(:service:jsString:) delegate callback`.
      */
-    func prepareRequestMessage(event: DreamsEvent.Request, with jsonObject: JSONObject?)
+    func prepareRequestMessage(event: Request, with jsonObject: JSONObject?)
 
     /**
      Handle the response message from the web view.
@@ -46,7 +46,7 @@ protocol DreamsWebServiceType: WKScriptMessageHandler {
      - parameter body: (optional) The message body (Usually the body property from the WKScriptMessage).
 
      # Notes: #
-     If the delegate property is set, calling this function will trigger the `dreamsWebServiceDidReceiveMessage(:service:event:jsonObject:) delegate callback`.
+     If the delegate property is set, calling this function will trigger the `webServiceDidReceiveMessage(:service:event:jsonObject:) delegate callback`.
      */
     func handleResponseMessage(name: String, body: Any?)
 }

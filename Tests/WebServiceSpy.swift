@@ -1,5 +1,5 @@
 //
-//  DreamsWebServiceSpy
+//  WebServiceSpy
 //  Dreams
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,11 +12,11 @@
 import Foundation
 @testable import Dreams
 
-class DreamsWebServiceSpy: DreamsWebService {
+class WebServiceSpy: WebService {
 
     var events: [[String: Any?]] = []
 
-    override func prepareRequestMessage(event: DreamsEvent.Request, with jsonObject: JSONObject?) {
+    override func prepareRequestMessage(event: Request, with jsonObject: JSONObject?) {
         events.append(["event": event, "jsonObject": jsonObject])
         super.prepareRequestMessage(event: event, with: jsonObject)
     }

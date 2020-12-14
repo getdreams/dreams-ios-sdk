@@ -25,11 +25,11 @@ class DreamsViewTests: XCTestCase {
     }
 
     func testDelegateCallbacks() {
-        let service = DreamsWebService()
+        let service = WebService()
         let dreamsView = DreamsView()
 
-        dreamsView.dreamsWebService = service
-        dreamsView.dreamsWebService.delegate = dreamsView
+        dreamsView.webService = service
+        dreamsView.webService.delegate = dreamsView
 
         let delegate = DreamsViewDelegateSpy()
         dreamsView.delegate = delegate
@@ -50,10 +50,10 @@ class DreamsViewTests: XCTestCase {
 
     func testInitialLoad() {
         let locale = Locale(identifier: "sv_SE")
-        let delegate = DreamsWebServiceDelegateSpy()
+        let delegate = WebServiceDelegateSpy()
 
         let dreamsView = DreamsView()
-        dreamsView.dreamsWebService.delegate = delegate
+        dreamsView.webService.delegate = delegate
         dreamsView.open(idToken: "idToken", locale: locale)
 
         let event = delegate.events.last
@@ -68,14 +68,14 @@ class DreamsViewTests: XCTestCase {
     }
 
     func testUpdateIdTokenRequest() {
-        let service = DreamsWebServiceSpy()
+        let service = WebServiceSpy()
         let dreamsView = DreamsView()
-        dreamsView.dreamsWebService = service
-        dreamsView.dreamsWebService.delegate = dreamsView
+        dreamsView.webService = service
+        dreamsView.webService.delegate = dreamsView
         dreamsView.update(idToken: "anotherIdToken")
 
         let event = service.events.last
-        let type = event?["event"] as! DreamsEvent.Request
+        let type = event?["event"] as! Request
         let jsonObject = event?["jsonObject"] as! JSONObject
 
         XCTAssertEqual(service.events.count, 1)
@@ -84,12 +84,12 @@ class DreamsViewTests: XCTestCase {
     }
 
     func testUpdateIdTokenJSMessage() {
-        let spyDelegate = DreamsWebServiceDelegateSpy()
-        let service = DreamsWebServiceSpy()
+        let spyDelegate = WebServiceDelegateSpy()
+        let service = WebServiceSpy()
 
         let dreamsView = DreamsView()
-        dreamsView.dreamsWebService = service
-        dreamsView.dreamsWebService.delegate = dreamsView
+        dreamsView.webService = service
+        dreamsView.webService.delegate = dreamsView
 
         service.delegate = spyDelegate
         dreamsView.update(idToken: "anotherIdToken")
@@ -103,14 +103,14 @@ class DreamsViewTests: XCTestCase {
 
     func testUpdateLocaleRequest() {
         let locale = Locale(identifier: "en_US")
-        let service = DreamsWebServiceSpy()
+        let service = WebServiceSpy()
         let dreamsView = DreamsView()
-        dreamsView.dreamsWebService = service
-        dreamsView.dreamsWebService.delegate = dreamsView
+        dreamsView.webService = service
+        dreamsView.webService.delegate = dreamsView
         dreamsView.update(locale: locale)
 
         let event = service.events.last
-        let type = event?["event"] as! DreamsEvent.Request
+        let type = event?["event"] as! Request
         let jsonObject = event?["jsonObject"] as! JSONObject
 
         XCTAssertEqual(service.events.count, 1)
@@ -120,12 +120,12 @@ class DreamsViewTests: XCTestCase {
 
     func testUpdateLocaleJSMessage() {
         let locale = Locale(identifier: "en_US")
-        let spyDelegate = DreamsWebServiceDelegateSpy()
-        let service = DreamsWebServiceSpy()
+        let spyDelegate = WebServiceDelegateSpy()
+        let service = WebServiceSpy()
 
         let dreamsView = DreamsView()
-        dreamsView.dreamsWebService = service
-        dreamsView.dreamsWebService.delegate = dreamsView
+        dreamsView.webService = service
+        dreamsView.webService.delegate = dreamsView
         
         service.delegate = spyDelegate
         dreamsView.update(locale: locale)
