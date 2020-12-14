@@ -46,9 +46,6 @@ class DreamsViewTests: XCTestCase {
 
         XCTAssertEqual(name, "test_event")
         XCTAssertEqual(NSDictionary(dictionary: payload!), NSDictionary(dictionary: ["test": "test"]))
-
-        service.handleResponseMessage(name: "onOnboardingDidComplete", body: nil)
-        XCTAssertTrue(delegate.offboardingWasCalled)
     }
 
     func testInitialLoad() {

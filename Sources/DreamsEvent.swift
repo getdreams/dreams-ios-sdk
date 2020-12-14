@@ -27,6 +27,5 @@ enum DreamsEvent {
     enum Response: String, CaseIterable {
         case onIdTokenDidExpire
         case onTelemetryEvent
-        case onOnboardingDidComplete
     }
 }

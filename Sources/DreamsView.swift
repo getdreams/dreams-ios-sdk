@@ -101,8 +101,6 @@ private extension DreamsView {
                   let payload = jsonObject?["payload"] as? JSONObject else { return }
 
             delegate?.dreamsViewDelegateDidReceiveTelemetryEvent(view: self, name: name, payload: payload)
-        case .onOnboardingDidComplete:
-            delegate?.dreamsViewDelegateDidReceiveOffboardingCompleted(view: self)
         }
     }
 }

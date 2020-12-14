@@ -16,7 +16,6 @@ class DreamsViewDelegateSpy: DreamsViewDelegate {
 
     var idTokenExpiredWasCalled: Bool = false
     var telemetryEventWasCalled: Bool = false
-    var offboardingWasCalled: Bool = false
 
     var telemetryEvents: [[String: Any]] = []
 
@@ -28,9 +27,5 @@ class DreamsViewDelegateSpy: DreamsViewDelegate {
         telemetryEventWasCalled = true
         let telemetryEvent: [String: Any] = ["name": name, "payload": payload]
         telemetryEvents.append(telemetryEvent)
-    }
-
-    func dreamsViewDelegateDidReceiveOffboardingCompleted(view: DreamsView) {
-        offboardingWasCalled = true
     }
 }
