@@ -30,10 +30,4 @@ public protocol DreamsViewDelegate: class {
      - parameter payload: The payload containing telemetry event data.
      */
     func dreamsViewDelegateDidReceiveTelemetryEvent(view: DreamsView, name: String, payload: [String: Any])
-
-    /**
-     Delegate callback when an offboarding has been completed.
-     - parameter view: The dreams view invoking the delegate method.
-     */
-    func dreamsViewDelegateDidReceiveOffboardingCompleted(view: DreamsView)
 }
