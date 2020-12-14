@@ -1,5 +1,5 @@
 //
-//  DreamsWebServiceTests
+//  WebServiceTests
 //  Dreams
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@
 import XCTest
 @testable import Dreams
 
-class DreamsWebServiceTests: XCTestCase {
+class WebServiceTests: XCTestCase {
     
     override class func setUp() {
         super.setUp()
@@ -25,8 +25,8 @@ class DreamsWebServiceTests: XCTestCase {
     }
 
     func testLoadURL1() {
-        let spyDelegate = DreamsWebServiceDelegateSpy()
-        let service = DreamsWebService()
+        let spyDelegate = WebServiceDelegateSpy()
+        let service = WebService()
         service.delegate = spyDelegate
 
         let mockURL = URL(string: "https://getdreams.com")!
@@ -41,8 +41,8 @@ class DreamsWebServiceTests: XCTestCase {
     }
 
     func testLoadURL2() {
-        let spyDelegate = DreamsWebServiceDelegateSpy()
-        let service = DreamsWebService()
+        let spyDelegate = WebServiceDelegateSpy()
+        let service = WebService()
         service.delegate = spyDelegate
 
         let mockURL = URL(string: "https://getdreams.com")!
@@ -57,8 +57,8 @@ class DreamsWebServiceTests: XCTestCase {
     }
 
     func testPreparRequesteMessage() {
-        let spyDelegate = DreamsWebServiceDelegateSpy()
-        let service = DreamsWebService()
+        let spyDelegate = WebServiceDelegateSpy()
+        let service = WebService()
         service.delegate = spyDelegate
 
         let jsonObject: JSONObject = ["idToken": "someIdToken"]
@@ -72,13 +72,13 @@ class DreamsWebServiceTests: XCTestCase {
     }
 
     func testHandleResponseMessage() {
-        let spyDelegate = DreamsWebServiceDelegateSpy()
-        let service = DreamsWebService()
+        let spyDelegate = WebServiceDelegateSpy()
+        let service = WebService()
         service.delegate = spyDelegate
         service.handleResponseMessage(name: "onIdTokenDidExpire", body: nil)
 
         let event = spyDelegate.events.last
-        let eventResponseType = event?["event"] as! DreamsEvent.Response
+        let eventResponseType = event?["event"] as! Response
         
         XCTAssertEqual(eventResponseType, .onIdTokenDidExpire)
     }

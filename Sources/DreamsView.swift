@@ -22,7 +22,7 @@ public class DreamsView: UIView {
         return webView
     }()
 
-    internal var dreamsWebService: DreamsWebServiceType = DreamsWebService()
+    internal var webService: WebServiceType = WebService()
     internal var dreams = Dreams.shared
 
     public override init(frame: CGRect) {
@@ -49,7 +49,7 @@ extension DreamsView: DreamsViewType {
             "clientId": clientId
         ]
 
-        dreamsWebService.load(url: baseURL, method: "POST", body: body)
+        webService.load(url: baseURL, method: "POST", body: body)
     }
 
     public func update(idToken: String) {
@@ -66,7 +66,7 @@ extension DreamsView: DreamsViewType {
 private extension DreamsView {
 
     func setup() {
-        dreamsWebService.delegate = self
+        webService.delegate = self
         addSubview(webView)
 
         NSLayoutConstraint.activate([
@@ -80,19 +80,19 @@ private extension DreamsView {
                 .constraint(equalTo: bottomAnchor)
         ])
 
-        DreamsEvent.Response.allCases.forEach {
+        Response.allCases.forEach {
             self.webView
                 .configuration
                 .userContentController
-                .add(dreamsWebService, name: $0.rawValue)
+                .add(webService, name: $0.rawValue)
         }
     }
 
-    func send(event: DreamsEvent.Request, with jsonObject: JSONObject?) {
-        dreamsWebService.prepareRequestMessage(event: event, with: jsonObject)
+    func send(event: Request, with jsonObject: JSONObject?) {
+        webService.prepareRequestMessage(event: event, with: jsonObject)
     }
 
-    func handle(event: DreamsEvent.Response, with jsonObject: JSONObject?) {
+    func handle(event: Response, with jsonObject: JSONObject?) {
         switch event {
         case .onIdTokenDidExpire:
             delegate?.dreamsViewDelegateDidReceiveIdTokenExpired(view: self)
@@ -106,17 +106,17 @@ private extension DreamsView {
 }
 
 
-extension DreamsView: DreamsWebServiceDelegate {
+extension DreamsView: WebServiceDelegate {
 
-    func dreamsWebServiceDidPrepareRequest(service: DreamsWebServiceType, urlRequest: URLRequest) {
+    func webServiceDidPrepareRequest(service: WebServiceType, urlRequest: URLRequest) {
         webView.load(urlRequest)
     }
 
-    func dreamsWebServiceDidPrepareMessage(service: DreamsWebServiceType, jsString: String) {
+    func webServiceDidPrepareMessage(service: WebServiceType, jsString: String) {
         webView.evaluateJavaScript(jsString)
     }
 
-    func dreamsWebServiceDidReceiveMessage(service: DreamsWebServiceType, event: DreamsEvent.Response, jsonObject: JSONObject?) {
+    func webServiceDidReceiveMessage(service: WebServiceType, event: Response, jsonObject: JSONObject?) {
         handle(event: event, with: jsonObject)
     }
 }
