@@ -1,5 +1,9 @@
 # Dreams iOS SDK
 
+## Requirements
+- **iOS** 10.0+
+- Swift 5.0+
+
 ## Installation
 
 ### Cocoapods
