@@ -61,6 +61,11 @@ extension DreamsView: DreamsViewType {
         let jsonObject: JSONObject = ["locale": locale.identifier]
         send(event: .updateLocale, with: jsonObject)
     }
+
+    public func accountProvisioned(requestId: String) {
+        let jsonObject: JSONObject = ["requestId": requestId]
+        send(event: .accountProvisioned, with: jsonObject)
+    }
 }
 
 private extension DreamsView {
@@ -101,6 +106,9 @@ private extension DreamsView {
                   let payload = jsonObject?["payload"] as? JSONObject else { return }
 
             delegate?.dreamsViewDelegateDidReceiveTelemetryEvent(view: self, name: name, payload: payload)
+        case .onAccountProvisionRequested:
+            guard let requestId = jsonObject?["requestId"] as? String else { return }
+            delegate?.dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: self, requestId: requestId)
         }
     }
 }

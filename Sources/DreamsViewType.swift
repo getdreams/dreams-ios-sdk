@@ -31,4 +31,13 @@ public protocol DreamsViewType {
      - parameter locale: The new locale.
      */
     func update(locale: Locale)
+
+    /**
+     Inform that the account was provisioned.
+     - parameter requestId: The received requestId.
+
+     # Notes: #
+     The requestId is received from the dreamsViewDelegateDidReceiveAccountProvisioningRequested(:view:requestId:) delegate method.
+    */
+    func accountProvisioned(requestId: String)
 }

@@ -24,30 +24,6 @@ class DreamsViewTests: XCTestCase {
         super.tearDown()
     }
 
-    func testDelegateCallbacks() {
-        let service = WebService()
-        let dreamsView = DreamsView()
-
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
-
-        let delegate = DreamsViewDelegateSpy()
-        dreamsView.delegate = delegate
-
-        service.handleResponseMessage(name: "onIdTokenDidExpire", body: nil)
-        XCTAssertTrue(delegate.idTokenExpiredWasCalled)
-
-        service.handleResponseMessage(name: "onTelemetryEvent", body: ["name": "test_event", "payload": ["test": "test"]])
-        XCTAssertTrue(delegate.telemetryEventWasCalled)
-
-        let lastTelemetryEvent = delegate.telemetryEvents.last
-        let name = lastTelemetryEvent?["name"] as? String
-        let payload = lastTelemetryEvent?["payload"] as? [String: Any]
-
-        XCTAssertEqual(name, "test_event")
-        XCTAssertEqual(NSDictionary(dictionary: payload!), NSDictionary(dictionary: ["test": "test"]))
-    }
-
     func testInitialLoad() {
         let locale = Locale(identifier: "sv_SE")
         let delegate = WebServiceDelegateSpy()
