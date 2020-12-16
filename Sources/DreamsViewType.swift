@@ -39,5 +39,5 @@ public protocol DreamsViewType {
      # Notes: #
      The requestId is received from the dreamsViewDelegateDidReceiveAccountProvisioningRequested(:view:requestId:) delegate method.
     */
-    func accountProvisioned(requestId: String)
+    func accountProvisionInitiated(requestId: String)
 }

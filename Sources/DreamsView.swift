@@ -62,9 +62,9 @@ extension DreamsView: DreamsViewType {
         send(event: .updateLocale, with: jsonObject)
     }
 
-    public func accountProvisioned(requestId: String) {
+    public func accountProvisionInitiated(requestId: String) {
         let jsonObject: JSONObject = ["requestId": requestId]
-        send(event: .accountProvisioned, with: jsonObject)
+        send(event: .accountProvisionInitiated, with: jsonObject)
     }
 }
 

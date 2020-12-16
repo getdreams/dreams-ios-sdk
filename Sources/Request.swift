@@ -17,5 +17,5 @@ import Foundation
 enum Request: String {
     case updateIdToken
     case updateLocale
-    case accountProvisioned
+    case accountProvisionInitiated
 }
