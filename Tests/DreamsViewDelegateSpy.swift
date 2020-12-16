@@ -17,6 +17,7 @@ class DreamsViewDelegateSpy: DreamsViewDelegate {
     var idTokenExpiredWasCalled: Bool = false
     var telemetryEventWasCalled: Bool = false
     var accountProvisioningRequestedWasCalled: Bool = false
+    var exitRequestedWasCalled: Bool = false
 
     var telemetryEvents: [[String: Any]] = []
     var accountProvisioningRequestIds: [String] = []
@@ -34,5 +35,9 @@ class DreamsViewDelegateSpy: DreamsViewDelegate {
     func dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: DreamsView, requestId: String) {
         accountProvisioningRequestedWasCalled = true
         accountProvisioningRequestIds.append(requestId)
+    }
+
+    func dreamsViewDelegateDidReceiveExitRequested(view: DreamsView) {
+        exitRequestedWasCalled = true
     }
 }

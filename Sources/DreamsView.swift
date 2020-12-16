@@ -109,6 +109,8 @@ private extension DreamsView {
         case .onAccountProvisionRequested:
             guard let requestId = jsonObject?["requestId"] as? String else { return }
             delegate?.dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: self, requestId: requestId)
+        case .onExitRequested:
+            delegate?.dreamsViewDelegateDidReceiveExitRequested(view: self)
         }
     }
 }

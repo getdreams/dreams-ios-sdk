@@ -65,4 +65,18 @@ class DreamsViewDelegateTests: XCTestCase {
         let requestId = delegate.accountProvisioningRequestIds.last
         XCTAssertEqual(requestId, "request_id")
     }
+
+    func testDelegateDidReceiveExitRequested() {
+        let service = WebService()
+        let dreamsView = DreamsView()
+
+        dreamsView.webService = service
+        dreamsView.webService.delegate = dreamsView
+
+        let delegate = DreamsViewDelegateSpy()
+        dreamsView.delegate = delegate
+
+        service.handleResponseMessage(name: "onExitRequested", body:nil)
+        XCTAssertTrue(delegate.exitRequestedWasCalled)
+    }
 }

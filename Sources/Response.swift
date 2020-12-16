@@ -18,4 +18,5 @@ enum Response: String, CaseIterable {
     case onIdTokenDidExpire
     case onTelemetryEvent
     case onAccountProvisionRequested
+    case onExitRequested
 }

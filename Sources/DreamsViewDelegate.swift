@@ -37,4 +37,13 @@ public protocol DreamsViewDelegate: class {
      - parameter requestId: The requestId that should be sent back when the account has been provisioned.
      */
     func dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: DreamsView, requestId: String)
+
+    /**
+    Delegate callback when a exit request is received.
+     - parameter view: The dreams view invoking the delegate method.
+
+     # Notes: #
+     Use this delegate callback to close or dismiss the dreams view.
+     */
+    func dreamsViewDelegateDidReceiveExitRequested(view: DreamsView)
 }
