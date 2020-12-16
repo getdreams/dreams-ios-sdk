@@ -21,6 +21,7 @@
 		FA6CD959252C6B2500E68FA7 /* DreamsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD958252C6B2500E68FA7 /* DreamsExtensions.swift */; };
 		FA73781425876E5800B662F3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73781325876E5800B662F3 /* Request.swift */; };
 		FA73781825876E7600B662F3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73781725876E7600B662F3 /* Response.swift */; };
+		FAABFF482588F2BE00302A40 /* DreamsViewDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7378342588F0B300B662F3 /* DreamsViewDelegateTests.swift */; };
 		FAF52E00252F2ADE0099D38F /* WebServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF52DFF252F2ADE0099D38F /* WebServiceDelegate.swift */; };
 		FAF52E04252F2FC90099D38F /* WebServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF52E03252F2FC90099D38F /* WebServiceType.swift */; };
 		FAF52E0A252F36A80099D38F /* DreamsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF52E09252F36A80099D38F /* DreamsViewDelegate.swift */; };
@@ -55,6 +56,7 @@
 		FA6CD958252C6B2500E68FA7 /* DreamsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsExtensions.swift; sourceTree = "<group>"; };
 		FA73781325876E5800B662F3 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		FA73781725876E7600B662F3 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		FA7378342588F0B300B662F3 /* DreamsViewDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewDelegateTests.swift; sourceTree = "<group>"; };
 		FAF52DFF252F2ADE0099D38F /* WebServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceDelegate.swift; sourceTree = "<group>"; };
 		FAF52E03252F2FC90099D38F /* WebServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceType.swift; sourceTree = "<group>"; };
 		FAF52E09252F36A80099D38F /* DreamsViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				FA6CD958252C6B2500E68FA7 /* DreamsExtensions.swift */,
 				FA6CD92B25262F7E00E68FA7 /* DreamsTests.swift */,
 				FA6CD93D252C6A6100E68FA7 /* DreamsViewDelegateSpy.swift */,
+				FA7378342588F0B300B662F3 /* DreamsViewDelegateTests.swift */,
 				FA6CD92725262F1600E68FA7 /* DreamsViewTests.swift */,
 				FA6CD94F252C6AEB00E68FA7 /* WebServiceDelegateSpy.swift */,
 				FA6CD8E12525EB2700E68FA7 /* WebServiceTests.swift */,
@@ -262,6 +265,7 @@
 				FA6CD953252C6AF700E68FA7 /* WebServiceDelegateSpy.swift in Sources */,
 				FA6CD8E22525EB2700E68FA7 /* WebServiceTests.swift in Sources */,
 				FA6CD959252C6B2500E68FA7 /* DreamsExtensions.swift in Sources */,
+				FAABFF482588F2BE00302A40 /* DreamsViewDelegateTests.swift in Sources */,
 				FA6CD93525262FE300E68FA7 /* DreamsViewTests.swift in Sources */,
 				FA6CD92C25262F7E00E68FA7 /* DreamsTests.swift in Sources */,
 			);

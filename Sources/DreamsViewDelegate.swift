@@ -30,4 +30,11 @@ public protocol DreamsViewDelegate: class {
      - parameter payload: The payload containing telemetry event data.
      */
     func dreamsViewDelegateDidReceiveTelemetryEvent(view: DreamsView, name: String, payload: [String: Any])
+
+    /**
+     Delegate callback when an account should be provisioned.
+     - parameter view: The dreams view invokting the delegate method.
+     - parameter requestId: The requestId that should be sent back when the account has been provisioned.
+     */
+    func dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: DreamsView, requestId: String)
 }

@@ -42,4 +42,8 @@ extension DreamsViewController: DreamsViewDelegate {
     func dreamsViewDelegateDidReceiveTelemetryEvent(view: DreamsView, name: String, payload: [String : Any]) {
         // telemetry event received
     }
+
+    func dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: DreamsView, requestId: String) {
+        // account provisioning requested
+    }
 }
