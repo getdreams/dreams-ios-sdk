@@ -46,4 +46,8 @@ extension DreamsViewController: DreamsViewDelegate {
     func dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: DreamsView, requestId: String) {
         // account provisioning requested
     }
+
+    func dreamsViewDelegateDidReceiveExitRequested(view: DreamsView) {
+        // on exit requested
+    }
 }
