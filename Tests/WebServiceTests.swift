@@ -56,7 +56,7 @@ class WebServiceTests: XCTestCase {
         XCTAssertNil(request.httpBody)
     }
 
-    func testPreparRequesteMessage() {
+    func testPrepareRequesteMessage() {
         let spyDelegate = WebServiceDelegateSpy()
         let service = WebService()
         service.delegate = spyDelegate

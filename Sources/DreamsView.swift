@@ -52,8 +52,8 @@ extension DreamsView: DreamsViewType {
         webService.load(url: baseURL, method: "POST", body: body)
     }
 
-    public func update(idToken: String) {
-        let jsonObject: JSONObject = ["idToken": idToken]
+    public func update(idToken: String, requestId: String) {
+        let jsonObject: JSONObject = ["idToken": idToken, "requestId":  requestId]
         send(event: .updateIdToken, with: jsonObject)
     }
 
@@ -100,7 +100,8 @@ private extension DreamsView {
     func handle(event: Response, with jsonObject: JSONObject?) {
         switch event {
         case .onIdTokenDidExpire:
-            delegate?.dreamsViewDelegateDidReceiveIdTokenExpired(view: self)
+            guard let requestId = jsonObject?["requestId"] as? String else { return }
+            delegate?.dreamsViewDelegateDidReceiveIdTokenExpired(view: self, requestId: requestId)
         case .onTelemetryEvent:
             guard let name = jsonObject?["name"] as? String,
                   let payload = jsonObject?["payload"] as? JSONObject else { return }

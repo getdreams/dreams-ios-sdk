@@ -48,7 +48,7 @@ class DreamsViewTests: XCTestCase {
         let dreamsView = DreamsView()
         dreamsView.webService = service
         dreamsView.webService.delegate = dreamsView
-        dreamsView.update(idToken: "anotherIdToken")
+        dreamsView.update(idToken: "anotherIdToken", requestId: "anotherRequestId")
 
         let event = service.events.last
         let type = event?["event"] as! Request
@@ -57,24 +57,7 @@ class DreamsViewTests: XCTestCase {
         XCTAssertEqual(service.events.count, 1)
         XCTAssertEqual(type, .updateIdToken)
         XCTAssertEqual(jsonObject["idToken"] as! String, "anotherIdToken")
-    }
-
-    func testUpdateIdTokenJSMessage() {
-        let spyDelegate = WebServiceDelegateSpy()
-        let service = WebServiceSpy()
-
-        let dreamsView = DreamsView()
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
-
-        service.delegate = spyDelegate
-        dreamsView.update(idToken: "anotherIdToken")
-
-        let event = spyDelegate.events.last
-        let message = event?["message"] as! String
-        let expectedJSMessage = "updateIdToken('{\"idToken\":\"anotherIdToken\"}')"
-        XCTAssertEqual(expectedJSMessage, message)
-        XCTAssertEqual(service.events.count, 1)
+        XCTAssertEqual(jsonObject["requestId"] as! String, "anotherRequestId")
     }
 
     func testUpdateLocaleRequest() {
@@ -92,24 +75,5 @@ class DreamsViewTests: XCTestCase {
         XCTAssertEqual(service.events.count, 1)
         XCTAssertEqual(type, .updateLocale)
         XCTAssertEqual(jsonObject["locale"] as! String, "en_US")
-    }
-
-    func testUpdateLocaleJSMessage() {
-        let locale = Locale(identifier: "en_US")
-        let spyDelegate = WebServiceDelegateSpy()
-        let service = WebServiceSpy()
-
-        let dreamsView = DreamsView()
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
-        
-        service.delegate = spyDelegate
-        dreamsView.update(locale: locale)
-
-        let event = spyDelegate.events.last
-        let message = event?["message"] as! String
-        let expectedJSMessage = "updateLocale('{\"locale\":\"en_US\"}')"
-        XCTAssertEqual(expectedJSMessage, message)
-        XCTAssertEqual(service.events.count, 1)
     }
 }

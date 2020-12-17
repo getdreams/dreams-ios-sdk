@@ -24,8 +24,11 @@ class DreamsViewDelegateTests: XCTestCase {
         let delegate = DreamsViewDelegateSpy()
         dreamsView.delegate = delegate
 
-        service.handleResponseMessage(name: "onIdTokenDidExpire", body: nil)
+        service.handleResponseMessage(name: "onIdTokenDidExpire", body: ["requestId": "request_id"])
         XCTAssertTrue(delegate.idTokenExpiredWasCalled)
+
+        let requestId = delegate.idTokenRequestIds.last
+        XCTAssertEqual(requestId, "request_id")
     }
 
     func testDelegateDidReceiveTelemetryEvent() {
