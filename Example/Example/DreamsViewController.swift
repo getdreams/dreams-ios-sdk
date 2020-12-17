@@ -5,6 +5,8 @@ final class DreamsViewController: UIViewController {
 
     private let dreamsView = DreamsView()
 
+    private var accountProvisioningRequestId: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,21 +35,39 @@ final class DreamsViewController: UIViewController {
     }
 }
 
+extension DreamsViewController {
+
+    func accountProvisionInitiated() {
+        guard let requestId = accountProvisioningRequestId else { return }
+        dreamsView.accountProvisionInitiated(requestId: requestId)
+    }
+
+    func updateIdToken() {
+
+        // 1. Get a new idToken
+        // 2. Pass it to the dreams view
+
+        let idToken = "newIdToken"
+        dreamsView.update(idToken: idToken)
+    }
+}
+
 extension DreamsViewController: DreamsViewDelegate {
 
     func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView) {
-        // set new idToken
+        print("IdToken expired event received")
+        updateIdToken()
     }
 
     func dreamsViewDelegateDidReceiveTelemetryEvent(view: DreamsView, name: String, payload: [String : Any]) {
-        // telemetry event received
+        print("Telemetry event received: \(name) with payload: \(payload)")
     }
 
     func dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: DreamsView, requestId: String) {
-        // account provisioning requested
+        accountProvisioningRequestId = requestId
     }
 
     func dreamsViewDelegateDidReceiveExitRequested(view: DreamsView) {
-        // on exit requested
+        print("Exit requested event received")
     }
 }
