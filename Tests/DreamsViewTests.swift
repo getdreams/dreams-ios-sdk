@@ -76,4 +76,20 @@ class DreamsViewTests: XCTestCase {
         XCTAssertEqual(type, .updateLocale)
         XCTAssertEqual(jsonObject["locale"] as! String, "en_US")
     }
+
+    func testAccountProvisionInitiatedRequest() {
+        let service = WebServiceSpy()
+        let dreamsView = DreamsView()
+        dreamsView.webService = service
+        dreamsView.webService.delegate = dreamsView
+        dreamsView.accountProvisionInitiated(requestId: "requestId")
+
+        let event = service.events.last
+        let type = event?["event"] as! Request
+        let jsonObject = event?["jsonObject"] as! JSONObject
+
+        XCTAssertEqual(service.events.count, 1)
+        XCTAssertEqual(type, .accountProvisionInitiated)
+        XCTAssertEqual(jsonObject["requestId"] as! String, "requestId")
+    }
 }
