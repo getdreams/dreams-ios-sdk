@@ -23,8 +23,12 @@ public protocol DreamsViewType {
     /**
      Update the idToken.
      - parameter idToken: The new idToken.
+     - parameter requestId: The received requestId.
+
+     # Notes: #
+     The requestId is received from the dreamsViewDelegateDidReceiveIdTokenExpired(:view:requestId:) delegate method.
      */
-    func update(idToken: String)
+    func update(idToken: String, requestId: String)
 
     /**
      Update the locale.

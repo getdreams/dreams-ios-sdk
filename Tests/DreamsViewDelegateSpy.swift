@@ -19,11 +19,13 @@ class DreamsViewDelegateSpy: DreamsViewDelegate {
     var accountProvisioningRequestedWasCalled: Bool = false
     var exitRequestedWasCalled: Bool = false
 
+    var idTokenRequestIds: [String] = []
     var telemetryEvents: [[String: Any]] = []
     var accountProvisioningRequestIds: [String] = []
 
-    func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView) {
+    func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView, requestId: String) {
         idTokenExpiredWasCalled = true
+        idTokenRequestIds.append(requestId)
     }
 
     func dreamsViewDelegateDidReceiveTelemetryEvent(view: DreamsView, name: String, payload: [String: Any]) {

@@ -20,8 +20,9 @@ public protocol DreamsViewDelegate: class {
     /**
      Delegate callback when the idToken has expired.
      - parameter view: The dreams view invoking the delegate method.
+     - parameter requestId: The requestId that should be sent back when passing a new valid idToken.
      */
-    func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView)
+    func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView, requestId: String)
 
     /**
      Delegate callback when a telemetry event is received.
