@@ -1,6 +1,6 @@
 //
-//  DreamsViewTests
-//  Dreams
+//  DreamsViewControllerTests
+//  DreamsTests
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,7 +12,7 @@
 import XCTest
 @testable import Dreams
 
-class DreamsViewTests: XCTestCase {
+class DreamsViewControllerTests: XCTestCase {
 
     override class func setUp() {
         super.setUp()
@@ -28,9 +28,9 @@ class DreamsViewTests: XCTestCase {
         let locale = Locale(identifier: "sv_SE")
         let delegate = WebServiceDelegateSpy()
 
-        let dreamsView = DreamsView()
-        dreamsView.webService.delegate = delegate
-        dreamsView.open(idToken: "idToken", locale: locale)
+        let vc = DreamsViewController()
+        vc.webService.delegate = delegate
+        vc.open(idToken: "idToken", locale: locale)
 
         let event = delegate.events.last
         let request = event?["request"] as! URLRequest
@@ -45,10 +45,11 @@ class DreamsViewTests: XCTestCase {
 
     func testUpdateIdTokenRequest() {
         let service = WebServiceSpy()
-        let dreamsView = DreamsView()
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
-        dreamsView.update(idToken: "anotherIdToken", requestId: "anotherRequestId")
+        let vc = DreamsViewController()
+
+        vc.webService = service
+        vc.webService.delegate = vc
+        vc.update(idToken: "anotherIdToken", requestId: "anotherRequestId")
 
         let event = service.events.last
         let type = event?["event"] as! Request
@@ -63,10 +64,11 @@ class DreamsViewTests: XCTestCase {
     func testUpdateLocaleRequest() {
         let locale = Locale(identifier: "en_US")
         let service = WebServiceSpy()
-        let dreamsView = DreamsView()
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
-        dreamsView.update(locale: locale)
+        let vc = DreamsViewController()
+
+        vc.webService = service
+        vc.webService.delegate = vc
+        vc.update(locale: locale)
 
         let event = service.events.last
         let type = event?["event"] as! Request
@@ -79,10 +81,11 @@ class DreamsViewTests: XCTestCase {
 
     func testAccountProvisionInitiatedRequest() {
         let service = WebServiceSpy()
-        let dreamsView = DreamsView()
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
-        dreamsView.accountProvisionInitiated(requestId: "requestId")
+        let vc = DreamsViewController()
+
+        vc.webService = service
+        vc.webService.delegate = vc
+        vc.accountProvisionInitiated(requestId: "requestId")
 
         let event = service.events.last
         let type = event?["event"] as! Request

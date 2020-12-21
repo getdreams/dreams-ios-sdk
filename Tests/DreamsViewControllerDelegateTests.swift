@@ -1,6 +1,6 @@
 //
-//  DreamsViewDelegateTests
-//  Dreams
+//  DreamsViewControllerDelegateTests
+//  DreamsTests
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,17 +12,17 @@
 import XCTest
 @testable import Dreams
 
-class DreamsViewDelegateTests: XCTestCase {
+class DreamsViewControllerDelegateTests: XCTestCase {
 
     func testDelegateDidReceiveIdTokenExpired() {
         let service = WebService()
-        let dreamsView = DreamsView()
+        let vc = DreamsViewController()
 
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
+        vc.webService = service
+        vc.webService.delegate = vc
 
-        let delegate = DreamsViewDelegateSpy()
-        dreamsView.delegate = delegate
+        let delegate = DreamsViewControllerDelegateSpy()
+        vc.delegate = delegate
 
         service.handleResponseMessage(name: "onIdTokenDidExpire", body: ["requestId": "request_id"])
         XCTAssertTrue(delegate.idTokenExpiredWasCalled)
@@ -33,13 +33,13 @@ class DreamsViewDelegateTests: XCTestCase {
 
     func testDelegateDidReceiveTelemetryEvent() {
         let service = WebService()
-        let dreamsView = DreamsView()
+        let vc = DreamsViewController()
 
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
+        vc.webService = service
+        vc.webService.delegate = vc
 
-        let delegate = DreamsViewDelegateSpy()
-        dreamsView.delegate = delegate
+        let delegate = DreamsViewControllerDelegateSpy()
+        vc.delegate = delegate
 
         service.handleResponseMessage(name: "onTelemetryEvent", body: ["name": "test_event", "payload": ["test": "test"]])
         XCTAssertTrue(delegate.telemetryEventWasCalled)
@@ -54,13 +54,13 @@ class DreamsViewDelegateTests: XCTestCase {
 
     func testDelegateDidReceiveAccountProvisioningRequested() {
         let service = WebService()
-        let dreamsView = DreamsView()
+        let vc = DreamsViewController()
 
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
+        vc.webService = service
+        vc.webService.delegate = vc
 
-        let delegate = DreamsViewDelegateSpy()
-        dreamsView.delegate = delegate
+        let delegate = DreamsViewControllerDelegateSpy()
+        vc.delegate = delegate
 
         service.handleResponseMessage(name: "onAccountProvisionRequested", body: ["requestId": "request_id"])
         XCTAssertTrue(delegate.accountProvisioningRequestedWasCalled)
@@ -71,13 +71,13 @@ class DreamsViewDelegateTests: XCTestCase {
 
     func testDelegateDidReceiveExitRequested() {
         let service = WebService()
-        let dreamsView = DreamsView()
+        let vc = DreamsViewController()
 
-        dreamsView.webService = service
-        dreamsView.webService.delegate = dreamsView
+        vc.webService = service
+        vc.webService.delegate = vc
 
-        let delegate = DreamsViewDelegateSpy()
-        dreamsView.delegate = delegate
+        let delegate = DreamsViewControllerDelegateSpy()
+        vc.delegate = delegate
 
         service.handleResponseMessage(name: "onExitRequested", body:nil)
         XCTAssertTrue(delegate.exitRequestedWasCalled)

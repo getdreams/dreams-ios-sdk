@@ -1,5 +1,5 @@
 //
-//  DreamsView
+//  DreamsViewController
 //  Dreams
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,9 +12,9 @@
 import UIKit
 import WebKit
 
-public class DreamsView: UIView {
+public class DreamsViewController: UIViewController {
 
-    public weak var delegate: DreamsViewDelegate?
+    public weak var delegate: DreamsViewControllerDelegate?
 
     private lazy var webView: WKWebView = {
         let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
@@ -25,8 +25,8 @@ public class DreamsView: UIView {
     internal var webService: WebServiceType = WebService()
     internal var dreams = Dreams.shared
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
 
@@ -34,9 +34,13 @@ public class DreamsView: UIView {
         super.init(coder: coder)
         setup()
     }
+
+    public override func loadView() {
+        view = webView
+    }
 }
 
-extension DreamsView: DreamsViewType {
+extension DreamsViewController: DreamsViewControllerType {
 
     public func open(idToken: String, locale: Locale) {
         guard
@@ -68,22 +72,10 @@ extension DreamsView: DreamsViewType {
     }
 }
 
-private extension DreamsView {
+private extension DreamsViewController {
 
     func setup() {
         webService.delegate = self
-        addSubview(webView)
-
-        NSLayoutConstraint.activate([
-            webView.leftAnchor
-                .constraint(equalTo: leftAnchor),
-            webView.topAnchor
-                .constraint(equalTo: topAnchor),
-            webView.rightAnchor
-                .constraint(equalTo: rightAnchor),
-            webView.bottomAnchor
-                .constraint(equalTo: bottomAnchor)
-        ])
 
         Response.allCases.forEach {
             self.webView
@@ -101,23 +93,23 @@ private extension DreamsView {
         switch event {
         case .onIdTokenDidExpire:
             guard let requestId = jsonObject?["requestId"] as? String else { return }
-            delegate?.dreamsViewDelegateDidReceiveIdTokenExpired(view: self, requestId: requestId)
+            delegate?.dreamsViewControllerDelegateDidReceiveIdTokenExpired(vc: self, requestId: requestId)
         case .onTelemetryEvent:
             guard let name = jsonObject?["name"] as? String,
                   let payload = jsonObject?["payload"] as? JSONObject else { return }
 
-            delegate?.dreamsViewDelegateDidReceiveTelemetryEvent(view: self, name: name, payload: payload)
+            delegate?.dreamsViewControllerDelegateDidReceiveTelemetryEvent(vc: self, name: name, payload: payload)
         case .onAccountProvisionRequested:
             guard let requestId = jsonObject?["requestId"] as? String else { return }
-            delegate?.dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: self, requestId: requestId)
+            delegate?.dreamsViewControllerDelegateDidReceiveAccountProvisioningRequested(vc: self, requestId: requestId)
         case .onExitRequested:
-            delegate?.dreamsViewDelegateDidReceiveExitRequested(view: self)
+            delegate?.dreamsViewControllerDelegateDidReceiveExitRequested(vc: self)
         }
     }
 }
 
 
-extension DreamsView: WebServiceDelegate {
+extension DreamsViewController: WebServiceDelegate {
 
     func webServiceDidPrepareRequest(service: WebServiceType, urlRequest: URLRequest) {
         webView.load(urlRequest)

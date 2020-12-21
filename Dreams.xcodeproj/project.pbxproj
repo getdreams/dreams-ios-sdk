@@ -9,23 +9,23 @@
 /* Begin PBXBuildFile section */
 		FA343FF1251CDD950073F33E /* Dreams.h in Headers */ = {isa = PBXBuildFile; fileRef = FA343FEF251CDD950073F33E /* Dreams.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA482EA2251CE91F00D6006B /* Dreams.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA482E9F251CE91F00D6006B /* Dreams.swift */; };
-		FA482EA3251CE91F00D6006B /* DreamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA482EA0251CE91F00D6006B /* DreamsView.swift */; };
+		FA482EA3251CE91F00D6006B /* DreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA482EA0251CE91F00D6006B /* DreamsViewController.swift */; };
 		FA6B49CE252356E80026B31D /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B49CD252356E80026B31D /* WebService.swift */; };
 		FA6CD8E22525EB2700E68FA7 /* WebServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD8E12525EB2700E68FA7 /* WebServiceTests.swift */; };
 		FA6CD8E42525EB2700E68FA7 /* Dreams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA343FEC251CDD950073F33E /* Dreams.framework */; };
 		FA6CD92C25262F7E00E68FA7 /* DreamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD92B25262F7E00E68FA7 /* DreamsTests.swift */; };
-		FA6CD93525262FE300E68FA7 /* DreamsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD92725262F1600E68FA7 /* DreamsViewTests.swift */; };
-		FA6CD941252C6A8000E68FA7 /* DreamsViewDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD93D252C6A6100E68FA7 /* DreamsViewDelegateSpy.swift */; };
+		FA6CD93525262FE300E68FA7 /* DreamsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD92725262F1600E68FA7 /* DreamsViewControllerTests.swift */; };
+		FA6CD941252C6A8000E68FA7 /* DreamsViewControllerDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD93D252C6A6100E68FA7 /* DreamsViewControllerDelegateSpy.swift */; };
 		FA6CD948252C6A9900E68FA7 /* WebServiceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD944252C6A9700E68FA7 /* WebServiceSpy.swift */; };
 		FA6CD953252C6AF700E68FA7 /* WebServiceDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD94F252C6AEB00E68FA7 /* WebServiceDelegateSpy.swift */; };
 		FA6CD959252C6B2500E68FA7 /* DreamsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD958252C6B2500E68FA7 /* DreamsExtensions.swift */; };
 		FA73781425876E5800B662F3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73781325876E5800B662F3 /* Request.swift */; };
 		FA73781825876E7600B662F3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73781725876E7600B662F3 /* Response.swift */; };
-		FAABFF482588F2BE00302A40 /* DreamsViewDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7378342588F0B300B662F3 /* DreamsViewDelegateTests.swift */; };
+		FAABFF482588F2BE00302A40 /* DreamsViewControllerDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7378342588F0B300B662F3 /* DreamsViewControllerDelegateTests.swift */; };
 		FAF52E00252F2ADE0099D38F /* WebServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF52DFF252F2ADE0099D38F /* WebServiceDelegate.swift */; };
 		FAF52E04252F2FC90099D38F /* WebServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF52E03252F2FC90099D38F /* WebServiceType.swift */; };
-		FAF52E0A252F36A80099D38F /* DreamsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF52E09252F36A80099D38F /* DreamsViewDelegate.swift */; };
-		FAF52E10252F382B0099D38F /* DreamsViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF52E0F252F382B0099D38F /* DreamsViewType.swift */; };
+		FAF52E0A252F36A80099D38F /* DreamsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF52E09252F36A80099D38F /* DreamsViewControllerDelegate.swift */; };
+		FAF52E10252F382B0099D38F /* DreamsViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF52E0F252F382B0099D38F /* DreamsViewControllerType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,24 +43,24 @@
 		FA343FEF251CDD950073F33E /* Dreams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dreams.h; sourceTree = "<group>"; };
 		FA343FF0251CDD950073F33E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA482E9F251CE91F00D6006B /* Dreams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dreams.swift; sourceTree = "<group>"; };
-		FA482EA0251CE91F00D6006B /* DreamsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DreamsView.swift; sourceTree = "<group>"; };
+		FA482EA0251CE91F00D6006B /* DreamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DreamsViewController.swift; sourceTree = "<group>"; };
 		FA6B49CD252356E80026B31D /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		FA6CD8DF2525EB2700E68FA7 /* DreamsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DreamsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6CD8E12525EB2700E68FA7 /* WebServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceTests.swift; sourceTree = "<group>"; };
 		FA6CD8E32525EB2700E68FA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA6CD92725262F1600E68FA7 /* DreamsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewTests.swift; sourceTree = "<group>"; };
+		FA6CD92725262F1600E68FA7 /* DreamsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewControllerTests.swift; sourceTree = "<group>"; };
 		FA6CD92B25262F7E00E68FA7 /* DreamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsTests.swift; sourceTree = "<group>"; };
-		FA6CD93D252C6A6100E68FA7 /* DreamsViewDelegateSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewDelegateSpy.swift; sourceTree = "<group>"; };
+		FA6CD93D252C6A6100E68FA7 /* DreamsViewControllerDelegateSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewControllerDelegateSpy.swift; sourceTree = "<group>"; };
 		FA6CD944252C6A9700E68FA7 /* WebServiceSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceSpy.swift; sourceTree = "<group>"; };
 		FA6CD94F252C6AEB00E68FA7 /* WebServiceDelegateSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceDelegateSpy.swift; sourceTree = "<group>"; };
 		FA6CD958252C6B2500E68FA7 /* DreamsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsExtensions.swift; sourceTree = "<group>"; };
 		FA73781325876E5800B662F3 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		FA73781725876E7600B662F3 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		FA7378342588F0B300B662F3 /* DreamsViewDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewDelegateTests.swift; sourceTree = "<group>"; };
+		FA7378342588F0B300B662F3 /* DreamsViewControllerDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewControllerDelegateTests.swift; sourceTree = "<group>"; };
 		FAF52DFF252F2ADE0099D38F /* WebServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceDelegate.swift; sourceTree = "<group>"; };
 		FAF52E03252F2FC90099D38F /* WebServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceType.swift; sourceTree = "<group>"; };
-		FAF52E09252F36A80099D38F /* DreamsViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewDelegate.swift; sourceTree = "<group>"; };
-		FAF52E0F252F382B0099D38F /* DreamsViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewType.swift; sourceTree = "<group>"; };
+		FAF52E09252F36A80099D38F /* DreamsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewControllerDelegate.swift; sourceTree = "<group>"; };
+		FAF52E0F252F382B0099D38F /* DreamsViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewControllerType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,9 +106,9 @@
 				FA343FF0251CDD950073F33E /* Info.plist */,
 				FA343FEF251CDD950073F33E /* Dreams.h */,
 				FA482E9F251CE91F00D6006B /* Dreams.swift */,
-				FA482EA0251CE91F00D6006B /* DreamsView.swift */,
-				FAF52E0F252F382B0099D38F /* DreamsViewType.swift */,
-				FAF52E09252F36A80099D38F /* DreamsViewDelegate.swift */,
+				FA482EA0251CE91F00D6006B /* DreamsViewController.swift */,
+				FAF52E0F252F382B0099D38F /* DreamsViewControllerType.swift */,
+				FAF52E09252F36A80099D38F /* DreamsViewControllerDelegate.swift */,
 				FA73781325876E5800B662F3 /* Request.swift */,
 				FA73781725876E7600B662F3 /* Response.swift */,
 				FA6B49CD252356E80026B31D /* WebService.swift */,
@@ -123,9 +123,9 @@
 			children = (
 				FA6CD958252C6B2500E68FA7 /* DreamsExtensions.swift */,
 				FA6CD92B25262F7E00E68FA7 /* DreamsTests.swift */,
-				FA6CD93D252C6A6100E68FA7 /* DreamsViewDelegateSpy.swift */,
-				FA7378342588F0B300B662F3 /* DreamsViewDelegateTests.swift */,
-				FA6CD92725262F1600E68FA7 /* DreamsViewTests.swift */,
+				FA6CD93D252C6A6100E68FA7 /* DreamsViewControllerDelegateSpy.swift */,
+				FA7378342588F0B300B662F3 /* DreamsViewControllerDelegateTests.swift */,
+				FA6CD92725262F1600E68FA7 /* DreamsViewControllerTests.swift */,
 				FA6CD94F252C6AEB00E68FA7 /* WebServiceDelegateSpy.swift */,
 				FA6CD8E12525EB2700E68FA7 /* WebServiceTests.swift */,
 				FA6CD944252C6A9700E68FA7 /* WebServiceSpy.swift */,
@@ -244,13 +244,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAF52E10252F382B0099D38F /* DreamsViewType.swift in Sources */,
-				FA482EA3251CE91F00D6006B /* DreamsView.swift in Sources */,
+				FAF52E10252F382B0099D38F /* DreamsViewControllerType.swift in Sources */,
+				FA482EA3251CE91F00D6006B /* DreamsViewController.swift in Sources */,
 				FA6B49CE252356E80026B31D /* WebService.swift in Sources */,
 				FAF52E00252F2ADE0099D38F /* WebServiceDelegate.swift in Sources */,
 				FA73781825876E7600B662F3 /* Response.swift in Sources */,
 				FAF52E04252F2FC90099D38F /* WebServiceType.swift in Sources */,
-				FAF52E0A252F36A80099D38F /* DreamsViewDelegate.swift in Sources */,
+				FAF52E0A252F36A80099D38F /* DreamsViewControllerDelegate.swift in Sources */,
 				FA73781425876E5800B662F3 /* Request.swift in Sources */,
 				FA482EA2251CE91F00D6006B /* Dreams.swift in Sources */,
 			);
@@ -261,12 +261,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA6CD948252C6A9900E68FA7 /* WebServiceSpy.swift in Sources */,
-				FA6CD941252C6A8000E68FA7 /* DreamsViewDelegateSpy.swift in Sources */,
+				FA6CD941252C6A8000E68FA7 /* DreamsViewControllerDelegateSpy.swift in Sources */,
 				FA6CD953252C6AF700E68FA7 /* WebServiceDelegateSpy.swift in Sources */,
 				FA6CD8E22525EB2700E68FA7 /* WebServiceTests.swift in Sources */,
 				FA6CD959252C6B2500E68FA7 /* DreamsExtensions.swift in Sources */,
-				FAABFF482588F2BE00302A40 /* DreamsViewDelegateTests.swift in Sources */,
-				FA6CD93525262FE300E68FA7 /* DreamsViewTests.swift in Sources */,
+				FAABFF482588F2BE00302A40 /* DreamsViewControllerDelegateTests.swift in Sources */,
+				FA6CD93525262FE300E68FA7 /* DreamsViewControllerTests.swift in Sources */,
 				FA6CD92C25262F7E00E68FA7 /* DreamsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,5 +1,5 @@
 //
-//  DreamsViewType
+//  DreamsViewControllerType
 //  Dreams
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,10 +11,10 @@
 
 import Foundation
 
-public protocol DreamsViewType {
+public protocol DreamsViewControllerType {
 
     /**
-     Open the dreams view.
+     Open the dreams view controller.
      - parameter idToken: The idToken.
      - parameter locale: The users locale.
      */
@@ -26,7 +26,7 @@ public protocol DreamsViewType {
      - parameter requestId: The received requestId.
 
      # Notes: #
-     The requestId is received from the dreamsViewDelegateDidReceiveIdTokenExpired(:view:requestId:) delegate method.
+     The requestId is received from the dreamsViewControllerDelegateDidReceiveIdTokenExpired(:view:requestId:) delegate method.
      */
     func update(idToken: String, requestId: String)
 
@@ -41,7 +41,7 @@ public protocol DreamsViewType {
      - parameter requestId: The received requestId.
 
      # Notes: #
-     The requestId is received from the dreamsViewDelegateDidReceiveAccountProvisioningRequested(:view:requestId:) delegate method.
+     The requestId is received from the dreamsViewControllerDelegateDidReceiveAccountProvisioningRequested(:view:requestId:) delegate method.
     */
     func accountProvisionInitiated(requestId: String)
 }
