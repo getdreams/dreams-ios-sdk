@@ -1,75 +1,42 @@
 import UIKit
 import Dreams
 
+//
+// This ViewController is initialized and presented by InterfaceBuilder (Main.storyboard)
+//
 class ViewController: UIViewController {
-
-    private var dreamsViewController: DreamsViewController?
-    private var accountProvisioningRequestId: String?
-    private var idTokenRequestId: String?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let button = UIButton(type: .system)
-        button.addTarget(self, action: #selector(presentDreams), for: .touchUpInside)
-        button.setTitle("Present Dreams", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(button)
-
-        NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: 150),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        ])
-    }
-
-    @objc
-    func presentDreams() {
+    @IBAction func presentDreams() {
         let vc = DreamsViewController()
         let nvc = UINavigationController(rootViewController: vc)
         nvc.modalPresentationStyle = .fullScreen
         present(nvc, animated: true)
-
-        dreamsViewController = vc
-        dreamsViewController?.open(idToken: "idToken", locale: Locale.current)
+        vc.open(credentials: DreamsCredentials(idToken: "idToken"), locale: Locale.current)
     }
 }
 
-extension ViewController {
-
-    func accountProvisionInitiated() {
-        guard let requestId = accountProvisioningRequestId else { return }
-        dreamsViewController?.accountProvisionInitiated(requestId: requestId)
-    }
-
-    func updateIdToken() {
-
-        // 1. Get a new idToken
-        // 2. Pass it to the dreams viewcontroller along with the request id
-        guard let requestId = idTokenRequestId else { return }
-        dreamsViewController?.update(idToken: "new_id_token", requestId: requestId)
-    }
-}
-
-extension ViewController: DreamsViewControllerDelegate {
-
-    func dreamsViewControllerDelegateDidReceiveIdTokenExpired(vc: DreamsViewController, requestId: String) {
+//
+// Example implementation of DreamsDelegate
+//
+extension ViewController: DreamsDelegate {
+    func handleDreamsCredentialsExpired(completion: (DreamsCredentials) -> Void) {
         print("IdToken expired event received")
-
-        idTokenRequestId = requestId
-        updateIdToken()
+        
+        completion(DreamsCredentials(idToken: "newtoken"))
     }
-
-    func dreamsViewControllerDelegateDidReceiveTelemetryEvent(vc: DreamsViewController, name: String, payload: [String : Any]) {
+    
+    func handleDreamsTelemetryEvent(name: String, payload: [String : Any]) {
         print("Telemetry event received: \(name) with payload: \(payload)")
     }
+    
+    func handleDreamsAccountProvisioning(completion: () -> Void) {
+        print("Account Provisioning event received")
 
-    func dreamsViewControllerDelegateDidReceiveAccountProvisioningRequested(vc: DreamsViewController, requestId: String) {
-        accountProvisioningRequestId = requestId
+        completion()
     }
-
-    func dreamsViewControllerDelegateDidReceiveExitRequested(vc: DreamsViewController) {
+    
+    func handleExitRequest() {
+        // For example:
+        presentedViewController?.dismiss(animated: true, completion: nil)
         print("Exit requested event received")
     }
 }

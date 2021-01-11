@@ -42,5 +42,5 @@ protocol WebServiceDelegate {
      - parameter event: The received Response type.
      - parameter jsonObject: (optional) The received JSONObject.
      */
-    func webServiceDidReceiveMessage(service: WebServiceType, event: Response, jsonObject: JSONObject?)
+    func webServiceDidReceiveMessage(service: WebServiceType, event: ResponseEvent, jsonObject: JSONObject?)
 }

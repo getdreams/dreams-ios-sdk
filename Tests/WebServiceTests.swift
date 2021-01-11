@@ -78,7 +78,7 @@ class WebServiceTests: XCTestCase {
         service.handleResponseMessage(name: "onIdTokenDidExpire", body: nil)
 
         let event = spyDelegate.events.last
-        let eventResponseType = event?["event"] as! Response
+        let eventResponseType = event?["event"] as! ResponseEvent
         
         XCTAssertEqual(eventResponseType, .onIdTokenDidExpire)
     }

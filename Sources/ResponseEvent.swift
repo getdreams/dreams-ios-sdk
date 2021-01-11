@@ -14,7 +14,7 @@ import Foundation
 /**
  The javascript response events supported.
  */
-enum Response: String, CaseIterable {
+enum ResponseEvent: String, CaseIterable {
     case onIdTokenDidExpire
     case onTelemetryEvent
     case onAccountProvisionRequested
