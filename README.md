@@ -1,7 +1,7 @@
 # Dreams iOS SDK
 
 ## Requirements
-- **iOS** 10.0+
+- iOS 10.0+
 - Swift 5.0+
 
 ## Installation
@@ -17,30 +17,52 @@ $ pod install
 ```
 
 ### Manually
+
 If you prefer not to use Cocoapods, you can simply integrate Dreams into your project by dragging in the files from the `Sources` folder.
 
 
 ## Usage
 1. Import `Dreams` in your `AppDelegate`.
+
     ```swift
     import Dreams
     ```
-2. Add the following to your `application:didFinishLaunchingWithOptions:` in your `Appdelegate`.
+    
+2. Add the following to your `application:didFinishLaunchingWithOptions:` in your `AppDelegate`.
+
+
     ```swift
-    Dreams.setup(clientId: "your_client_id", baseURL: "your_base_url")
+    Dreams.configure(clientId: "your_client_id", baseURL: "your_base_url")
     ```
 
-3. Create an instance of a `DreamsView` and add it to the view hierarchy.
-    ```swift
-    let dreamsView = DreamsView()
-    self.view.addSubview(dreamsView)
-    ```
-4. Set the delegate and implement the delegate methods.
-    ```swift
-    dreamsView.delegate = self
-    ```
+3. Create an instance of a `DreamsViewController`.
 
-5. Call the `open(accessToken:locale)` method.
     ```swift
-    dreamsView.open(accessToken: "access_token", locale: "some_locale")
+     let viewController = DreamsViewController()
     ```
+    
+4. Set the delegate and implement the `DreamsDelegate` methods.
+
+    ```swift
+    viewController.use(delegate: self)
+    ```
+    
+5. Prepare user's credentials.
+
+	```swift 
+	let userCredentials = DreamsCredentials(idToken: "idToken")
+	```
+
+6. Present ViewController and then launch Dreams.
+7. 
+	```swift
+        let navigation = UINavigationController(rootViewController: viewController)
+        present(navigation, animated: true) {
+            viewController.launch(with: userCredentials)
+        }
+
+	```
+	
+This is just one example you can present it however you like including instantiation from Storyboards and xib's.
+
+
