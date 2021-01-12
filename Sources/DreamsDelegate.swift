@@ -32,7 +32,7 @@ public protocol DreamsDelegate: class {
     /**
      Called when an account should be provisioned.
      */
-    func handleDreamsAccountProvisioning(completion: () -> Void)
+    func handleDreamsAccountProvisioningInitiated(completion: () -> Void)
 
     /**
     Called when an exit request is received.
