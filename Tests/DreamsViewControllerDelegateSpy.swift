@@ -1,6 +1,6 @@
 //
-//  DreamsViewDelegateSpy
-//  Dreams
+//  DreamsViewControllerDelegateSpy
+//  DreamsTests
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,7 +12,7 @@
 import Foundation
 @testable import Dreams
 
-class DreamsViewDelegateSpy: DreamsViewDelegate {
+class DreamsViewControllerDelegateSpy: DreamsViewControllerDelegate {
 
     var idTokenExpiredWasCalled: Bool = false
     var telemetryEventWasCalled: Bool = false
@@ -23,23 +23,23 @@ class DreamsViewDelegateSpy: DreamsViewDelegate {
     var telemetryEvents: [[String: Any]] = []
     var accountProvisioningRequestIds: [String] = []
 
-    func dreamsViewDelegateDidReceiveIdTokenExpired(view: DreamsView, requestId: String) {
+    func dreamsViewControllerDelegateDidReceiveIdTokenExpired(vc: DreamsViewController, requestId: String) {
         idTokenExpiredWasCalled = true
         idTokenRequestIds.append(requestId)
     }
 
-    func dreamsViewDelegateDidReceiveTelemetryEvent(view: DreamsView, name: String, payload: [String: Any]) {
+    func dreamsViewControllerDelegateDidReceiveTelemetryEvent(vc: DreamsViewController, name: String, payload: [String: Any]) {
         telemetryEventWasCalled = true
         let telemetryEvent: [String: Any] = ["name": name, "payload": payload]
         telemetryEvents.append(telemetryEvent)
     }
 
-    func dreamsViewDelegateDidReceiveAccountProvisioningRequested(view: DreamsView, requestId: String) {
+    func dreamsViewControllerDelegateDidReceiveAccountProvisioningRequested(vc: DreamsViewController, requestId: String) {
         accountProvisioningRequestedWasCalled = true
         accountProvisioningRequestIds.append(requestId)
     }
 
-    func dreamsViewDelegateDidReceiveExitRequested(view: DreamsView) {
+    func dreamsViewControllerDelegateDidReceiveExitRequested(vc: DreamsViewController) {
         exitRequestedWasCalled = true
     }
 }

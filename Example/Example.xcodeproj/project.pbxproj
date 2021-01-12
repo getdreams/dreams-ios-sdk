@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA07D668251E208700ECDFF7 /* DreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07D667251E208700ECDFF7 /* DreamsViewController.swift */; };
 		FA344008251CE2740073F33E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA344007251CE2740073F33E /* AppDelegate.swift */; };
 		FA34400A251CE2740073F33E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA344009251CE2740073F33E /* SceneDelegate.swift */; };
 		FA34400C251CE2740073F33E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA34400B251CE2740073F33E /* ViewController.swift */; };
@@ -18,7 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FA07D667251E208700ECDFF7 /* DreamsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsViewController.swift; sourceTree = "<group>"; };
 		FA344004251CE2740073F33E /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA344007251CE2740073F33E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA344009251CE2740073F33E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,7 +63,6 @@
 				FA344007251CE2740073F33E /* AppDelegate.swift */,
 				FA344009251CE2740073F33E /* SceneDelegate.swift */,
 				FA34400B251CE2740073F33E /* ViewController.swift */,
-				FA07D667251E208700ECDFF7 /* DreamsViewController.swift */,
 				FA34400D251CE2740073F33E /* Main.storyboard */,
 				FA344010251CE2770073F33E /* Assets.xcassets */,
 				FA344012251CE2770073F33E /* LaunchScreen.storyboard */,
@@ -152,7 +149,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA07D668251E208700ECDFF7 /* DreamsViewController.swift in Sources */,
 				FA34400C251CE2740073F33E /* ViewController.swift in Sources */,
 				FA344008251CE2740073F33E /* AppDelegate.swift in Sources */,
 				FA34400A251CE2740073F33E /* SceneDelegate.swift in Sources */,
