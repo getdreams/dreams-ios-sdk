@@ -7,7 +7,7 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
 //  Copyright © 2020 Dreams AB.
-//
+//  TEST
 
 #import <Foundation/Foundation.h>
 
