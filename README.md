@@ -1,7 +1,7 @@
 # Dreams iOS SDK
 
 ## Requirements
-- iOS 10.0+
+- iOS 10.3+
 - Swift 5.0+
 
 ## Installation
