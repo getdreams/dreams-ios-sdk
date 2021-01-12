@@ -12,26 +12,22 @@
 import Foundation
 import class WebKit.WKWebView
 
+// MARK: DreamsNetworkInteracting
+
 public protocol DreamsNetworkInteracting {
     func didLoad()
     func use(webView: WKWebView)
     func use(delegate: DreamsDelegate)
-    func start(with credentials: DreamsCredentials, locale: Locale)
+    func launch(with credentials: DreamsCredentials, locale: Locale)
 }
 
-public enum DreamsNetworkInteractionBuilder {
-    static func build() -> DreamsNetworkInteracting & WebServiceDelegate {
-        
-        guard let configuration = Dreams.shared.configuration else {
-            fatalError("Dreams.shared.configuration must be set before DreamsNetworkInteractionBuilder.build() is called!")
-        }
-        
-        let webService = WebService()
-        return DreamsNetworkInteraction(configuration: configuration, webService: webService)
+extension DreamsNetworkInteracting {
+    func launch(with credentials: DreamsCredentials) {
+        launch(with: credentials, locale: Locale.current)
     }
 }
 
-// MARK: DreamsNetworkInteracting
+// MARK: DreamsNetworkInteraction
 
 public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
 
@@ -76,7 +72,7 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         send(event: .accountProvisionInitiated, with: jsonObject)
     }
     
-    public func start(with credentials: DreamsCredentials, locale: Locale) {
+    public func launch(with credentials: DreamsCredentials, locale: Locale) {
         loadBaseURL(credentials: credentials, locale: locale)
     }
     
