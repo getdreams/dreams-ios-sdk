@@ -7,10 +7,12 @@ import Dreams
 class ViewController: UIViewController {
     @IBAction func presentDreams() {
         let vc = DreamsViewController()
+        vc.use(delegate: self)
         let nvc = UINavigationController(rootViewController: vc)
         nvc.modalPresentationStyle = .fullScreen
-        present(nvc, animated: true)
-        vc.open(credentials: DreamsCredentials(idToken: "idToken"), locale: Locale.current)
+        present(nvc, animated: true) {
+            vc.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale.current)
+        }
     }
 }
 
