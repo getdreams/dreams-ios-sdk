@@ -12,6 +12,23 @@
 import UIKit
 import WebKit
 
+public protocol DreamsLaunching: class {
+    /**
+     This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
+     - parameter credentials credentials: User credentials
+     - parameter locale: Selected Locale
+     */
+    func launch(with credentials: DreamsCredentials, locale: Locale)
+}
+
+public protocol DreamsDelegateUsing: class {
+    /**
+     This method MUST be called before the ViewController is presented, otherwise delegate won't be able to mediate.
+     - parameter delegate : DreamsDelegate handling events
+     */
+    func use(delegate: DreamsDelegate)
+}
+
 public class DreamsViewController: UIViewController {
 
     private lazy var webView: WKWebView = {
@@ -46,14 +63,29 @@ public class DreamsViewController: UIViewController {
         interaction.didLoad()
     }
     
-    // MARK: START
-    
+}
+
+// MARK: DreamsLaunching
+extension DreamsViewController: DreamsLaunching {
+
     /**
-     This method should be called just after the ViewController is presented for the Dreams interface be launched for given credentials.
+     This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
      - parameter credentials credentials: User credentials
      - parameter locale: Selected Locale
      */
-    public func open(credentials: DreamsCredentials, locale: Locale) {
-        interaction.start(with: credentials, locale: locale)
+    public func launch(with credentials: DreamsCredentials, locale: Locale) {
+        interaction.launch(with: credentials, locale: locale)
+    }
+}
+
+// MARK: DreamsDelegateUsing
+extension DreamsViewController: DreamsDelegateUsing {
+
+    /**
+     This method MUST be called before the ViewController is presented, otherwise delegate won't be able to mediate.
+     - parameter delegate : DreamsDelegate handling events
+     */
+    public func use(delegate: DreamsDelegate) {
+        interaction.use(delegate: delegate)
     }
 }
