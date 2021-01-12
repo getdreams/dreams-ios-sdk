@@ -57,21 +57,6 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         self.delegate = delegate
     }
     
-    public func update(idToken: String, requestId: String) {
-        let jsonObject: JSONObject = ["idToken": idToken, "requestId":  requestId]
-        send(event: .updateIdToken, with: jsonObject)
-    }
-
-    public func update(locale: Locale) {
-        let jsonObject: JSONObject = ["locale": locale.identifier]
-        send(event: .updateLocale, with: jsonObject)
-    }
-
-    public func accountProvisionInitiated(requestId: String) {
-        let jsonObject: JSONObject = ["requestId": requestId]
-        send(event: .accountProvisionInitiated, with: jsonObject)
-    }
-    
     public func launch(with credentials: DreamsCredentials, locale: Locale) {
         loadBaseURL(credentials: credentials, locale: locale)
     }
@@ -91,12 +76,27 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
             delegate?.handleDreamsTelemetryEvent(name: name, payload: payload)
         case .onAccountProvisionRequested:
             guard let requestId = jsonObject?["requestId"] as? String else { return }
-            delegate?.handleDreamsAccountProvisioning { [weak self] in
+            delegate?.handleDreamsAccountProvisioningInitiated { [weak self] in
                 self?.accountProvisionInitiated(requestId: requestId)
             }
         case .onExitRequested:
             delegate?.handleExitRequest()
         }
+    }
+    
+    private func update(idToken: String, requestId: String) {
+        let jsonObject: JSONObject = ["idToken": idToken, "requestId":  requestId]
+        send(event: .updateIdToken, with: jsonObject)
+    }
+
+    private func update(locale: Locale) {
+        let jsonObject: JSONObject = ["locale": locale.identifier]
+        send(event: .updateLocale, with: jsonObject)
+    }
+
+    private func accountProvisionInitiated(requestId: String) {
+        let jsonObject: JSONObject = ["requestId": requestId]
+        send(event: .accountProvisionInitiated, with: jsonObject)
     }
     
     private func setUpUserContentController() {
