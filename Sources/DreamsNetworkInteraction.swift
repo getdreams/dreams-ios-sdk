@@ -76,7 +76,7 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
             delegate?.handleDreamsTelemetryEvent(name: name, payload: payload)
         case .onAccountProvisionRequested:
             guard let requestId = jsonObject?["requestId"] as? String else { return }
-            delegate?.handleDreamsAccountProvisioningInitiated { [weak self] in
+            delegate?.handleDreamsAccountProvisionInitiated { [weak self] in
                 self?.accountProvisionInitiated(requestId: requestId)
             }
         case .onExitRequested:

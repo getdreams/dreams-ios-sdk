@@ -30,8 +30,8 @@ extension ViewController: DreamsDelegate {
         print("Telemetry event received: \(name) with payload: \(payload)")
     }
     
-    func handleDreamsAccountProvisioningInitiated(completion: () -> Void) {
-        print("Account Provisioning Initiated event received")
+    func handleDreamsAccountProvisionInitiated(completion: () -> Void) {
+        print("Account Provision Initiated event received")
 
         completion()
     }
