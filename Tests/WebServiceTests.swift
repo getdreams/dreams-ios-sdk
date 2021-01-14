@@ -16,12 +16,7 @@ class WebServiceTests: XCTestCase {
     
     override class func setUp() {
         super.setUp()
-        Dreams.setup(clientId: "clientId", baseURL: "https://www.getdreams.com")
-    }
-
-    override class func tearDown() {
-        Dreams.shared.reset()
-        super.tearDown()
+        Dreams.configure(clientId: "clientId", baseURL: URL(string: "https://www.getdreams.com")!)
     }
 
     func testLoadURL1() {

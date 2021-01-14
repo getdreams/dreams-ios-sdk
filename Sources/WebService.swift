@@ -14,7 +14,7 @@ import WebKit
 
 typealias JSONObject = [String: Any]
 
-final class WebService: NSObject, WebServiceType {
+class WebService: NSObject, WebServiceType {
 
     var delegate: WebServiceDelegate?
 

@@ -11,7 +11,7 @@ class ViewController: UIViewController {
         let nvc = UINavigationController(rootViewController: vc)
         nvc.modalPresentationStyle = .fullScreen
         present(nvc, animated: true) {
-            vc.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale.current)
+            vc.launch(idToken: "idToken", locale: Locale.current)
         }
     }
 }
@@ -20,10 +20,10 @@ class ViewController: UIViewController {
 // Example implementation of DreamsDelegate
 //
 extension ViewController: DreamsDelegate {
-    func handleDreamsCredentialsExpired(completion: @escaping (DreamsCredentials) -> Void) {
+    func handleDreamsCredentialsExpired(completion: @escaping (String) -> Void) {
         print("IdToken expired event received")
         
-        completion(DreamsCredentials(idToken: "newtoken"))
+        completion("newtoken")
     }
     
     func handleDreamsTelemetryEvent(name: String, payload: [String : Any]) {

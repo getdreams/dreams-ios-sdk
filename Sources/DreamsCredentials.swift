@@ -14,7 +14,7 @@ import Foundation
 public struct DreamsCredentials {
     let idToken: String
     
-    public init(idToken: String) {
+    init(idToken: String) {
         self.idToken = idToken
     }
 }

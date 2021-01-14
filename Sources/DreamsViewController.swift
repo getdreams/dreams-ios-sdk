@@ -15,10 +15,18 @@ import WebKit
 public protocol DreamsLaunching: class {
     /**
      This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
-     - parameter credentials credentials: User credentials
+     - parameter idToken: User idToken
      - parameter locale: Selected Locale
      */
-    func launch(with credentials: DreamsCredentials, locale: Locale)
+    func launch(idToken: String, locale: Locale)
+}
+
+public protocol LocaleUpdating: class {
+    /**
+     This method can be called at all times after the DreamsViewController is presented, the Dreams interface will update to selected Locale.
+     - parameter locale: Selected Locale
+     */
+    func update(locale: Locale)
 }
 
 public protocol DreamsDelegateUsing: class {
@@ -45,12 +53,18 @@ public class DreamsViewController: UIViewController {
     }
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.interaction = DreamsNetworkInteractionBuilder.build()
+        guard let configuration = Dreams.shared.configuration else {
+            fatalError("Call Dreams.configure() in your AppDelegate")
+        }
+        self.interaction = DreamsNetworkInteractionBuilder.build(configuration: configuration)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
     public required init?(coder: NSCoder) {
-        self.interaction = DreamsNetworkInteractionBuilder.build()
+        guard let configuration = Dreams.shared.configuration else {
+            fatalError("Call Dreams.configure() in your AppDelegate")
+        }
+        self.interaction = DreamsNetworkInteractionBuilder.build(configuration: configuration)
         super.init(coder: coder)
     }
 
@@ -70,11 +84,11 @@ extension DreamsViewController: DreamsLaunching {
 
     /**
      This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
-     - parameter credentials credentials: User credentials
+     - parameter idToken: User idToken
      - parameter locale: Selected Locale
      */
-    public func launch(with credentials: DreamsCredentials, locale: Locale) {
-        interaction.launch(with: credentials, locale: locale)
+    public func launch(idToken: String, locale: Locale) {
+        interaction.launch(with: DreamsCredentials(idToken: idToken), locale: locale)
     }
 }
 
@@ -87,5 +101,17 @@ extension DreamsViewController: DreamsDelegateUsing {
      */
     public func use(delegate: DreamsDelegate) {
         interaction.use(delegate: delegate)
+    }
+}
+
+// MARK: LocaleUpdating
+extension DreamsViewController: LocaleUpdating {
+
+    /**
+     This method can be called at all times after the DreamsViewController is presented, the Dreams interface will update to selected Locale.
+     - parameter locale: Selected Locale
+     */
+    public func update(locale: Locale) {
+        interaction.update(locale: locale)
     }
 }
