@@ -15,7 +15,7 @@ import XCTest
 class DreamsTests: XCTestCase {
     func testConfiguration() {
         XCTAssertNil(Dreams.shared.configuration)
-        Dreams.configure(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!)
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!))
         XCTAssertEqual(Dreams.shared.configuration!.baseURL, URL(string: "https://getdreams.com")!)
         XCTAssertEqual(Dreams.shared.configuration!.clientId, "clientId")
     }

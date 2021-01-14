@@ -20,7 +20,7 @@ public protocol DreamsDelegate: class {
     /**
      Called when the credentials has expired.
      */
-    func handleDreamsCredentialsExpired(completion: @escaping (_ idToken: String) -> Void)
+    func handleDreamsCredentialsExpired(completion: @escaping (_ credentials: DreamsCredentials) -> Void)
 
     /**
      Called when a telemetry event is received.

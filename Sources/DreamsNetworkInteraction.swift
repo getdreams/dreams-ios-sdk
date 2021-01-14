@@ -66,8 +66,8 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         switch event {
         case .onIdTokenDidExpire:
             guard let requestId = jsonObject?["requestId"] as? String else { return }
-            delegate?.handleDreamsCredentialsExpired { [weak self] idToken in
-                self?.update(idToken: idToken, requestId: requestId)
+            delegate?.handleDreamsCredentialsExpired { [weak self] credentials in
+                self?.update(idToken: credentials.idToken, requestId: requestId)
             }
         case .onTelemetryEvent:
             guard let name = jsonObject?["name"] as? String,

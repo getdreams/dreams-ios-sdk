@@ -18,7 +18,7 @@ public protocol DreamsLaunching: class {
      - parameter idToken: User idToken
      - parameter locale: Selected Locale
      */
-    func launch(idToken: String, locale: Locale)
+    func launch(with credentials: DreamsCredentials, locale: Locale)
 }
 
 public protocol LocaleUpdating: class {
@@ -87,8 +87,8 @@ extension DreamsViewController: DreamsLaunching {
      - parameter idToken: User idToken
      - parameter locale: Selected Locale
      */
-    public func launch(idToken: String, locale: Locale) {
-        interaction.launch(with: DreamsCredentials(idToken: idToken), locale: locale)
+    public func launch(with credentials: DreamsCredentials, locale: Locale) {
+        interaction.launch(with: credentials, locale: locale)
     }
 }
 

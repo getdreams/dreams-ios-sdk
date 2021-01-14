@@ -13,7 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        Dreams.configure(clientId: "clientId", baseURL: URL(string: "https://dreams-stage.com")!)
+        let configuration = DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://dreams-stage.com")!)
+        Dreams.configure(configuration)
         
         return true
     }

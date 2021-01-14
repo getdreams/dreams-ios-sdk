@@ -12,9 +12,16 @@
 import Foundation
 
 public struct DreamsCredentials {
+    /**
+    Token of the signed in user
+     */
     let idToken: String
     
-    init(idToken: String) {
+    /**
+     Create DreamsCredentials
+     - parameter idToken: Token of the signed in user
+     */
+    public init(idToken: String) {
         self.idToken = idToken
     }
 }

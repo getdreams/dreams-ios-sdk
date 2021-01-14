@@ -129,7 +129,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         let jsonObject =  ["requestId": "request_id"]
         
         subject.webServiceDidReceiveMessage(service: service, event: event, jsonObject:  jsonObject)
-        delegate.handleDreamsCredentialsExpiredCompletions.first!(token)
+        delegate.handleDreamsCredentialsExpiredCompletions.first!(DreamsCredentials(idToken: token))
         
         XCTAssertEqual(service.events.count, 1)
         XCTAssertEqual(service.events.first, .updateIdToken)

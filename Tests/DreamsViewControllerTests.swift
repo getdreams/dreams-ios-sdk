@@ -24,12 +24,12 @@ class DreamsViewControllerTests: XCTestCase {
     }
     
     func testFromInit() {
-        Dreams.configure(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!)
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!))
         subject = DreamsViewController()
     }
     
     func testFromNib() {
-        Dreams.configure(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!)
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!))
         subject = DreamsViewController(nibName: nil, bundle: nil)
     }
     
@@ -59,7 +59,7 @@ class DreamsViewControllerTests: XCTestCase {
         let credentials = DreamsCredentials(idToken: idToken)
         let locale = Locale(identifier: "sv_SE")
         
-        subject.launch(idToken: idToken, locale: locale)
+        subject.launch(with: credentials, locale: locale)
         
         XCTAssertEqual(interaction.launchCredentials.count, 1)
         XCTAssertEqual(interaction.launchCredentials.first!.idToken, credentials.idToken)

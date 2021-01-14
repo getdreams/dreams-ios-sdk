@@ -14,14 +14,14 @@ import Foundation
 
 final class DreamsDelegateSpy: DreamsDelegate {
     
-    var handleDreamsCredentialsExpiredCompletions: [(String) -> Void] = []
+    var handleDreamsCredentialsExpiredCompletions: [(DreamsCredentials) -> Void] = []
     var handleDreamsTelemetryEventNames: [String] = []
     var handleDreamsTelemetryEventPayloads: [[String : Any]] = []
     var handleDreamsAccountProvisionInitiatedCompletions: [() -> Void] = []
     var handleExitRequestCount = 0
     
     
-    func handleDreamsCredentialsExpired(completion: @escaping (String) -> Void) {
+    func handleDreamsCredentialsExpired(completion: @escaping (DreamsCredentials) -> Void) {
         handleDreamsCredentialsExpiredCompletions.append(completion)
     }
     

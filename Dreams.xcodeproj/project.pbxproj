@@ -53,6 +53,7 @@
 		1AAC42BF25B0928200A56457 /* WebViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewSpy.swift; sourceTree = "<group>"; };
 		1AAC42C925B0993800A56457 /* DreamsNetworkInteractingSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsNetworkInteractingSpy.swift; sourceTree = "<group>"; };
 		1AAC42CF25B09BF800A56457 /* DreamsNetworkInteractionBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsNetworkInteractionBuilderTests.swift; sourceTree = "<group>"; };
+		1AAC42D525B0AFE200A56457 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FA343FEC251CDD950073F33E /* Dreams.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dreams.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA343FEF251CDD950073F33E /* Dreams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dreams.h; sourceTree = "<group>"; };
 		FA343FF0251CDD950073F33E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,6 +110,7 @@
 		FA343FE2251CDD950073F33E = {
 			isa = PBXGroup;
 			children = (
+				1AAC42D525B0AFE200A56457 /* README.md */,
 				FA343FEE251CDD950073F33E /* Sources */,
 				FA6CD8E02525EB2700E68FA7 /* Tests */,
 				FA343FED251CDD950073F33E /* Products */,

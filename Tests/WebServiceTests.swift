@@ -16,7 +16,7 @@ class WebServiceTests: XCTestCase {
     
     override class func setUp() {
         super.setUp()
-        Dreams.configure(clientId: "clientId", baseURL: URL(string: "https://www.getdreams.com")!)
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://www.getdreams.com")!))
     }
 
     func testLoadURL1() {

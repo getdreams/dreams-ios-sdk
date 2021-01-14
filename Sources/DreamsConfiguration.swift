@@ -25,4 +25,14 @@ public struct DreamsConfiguration {
      The base url for Dreams SDK
      */
     public let baseURL: URL
+    
+    /**
+     Create DreamsConfiguration
+     - parameter clientId: The client id for Dreams SDK
+     - parameter baseURL: The base url for Dreams SDK
+     */
+    public init(clientId: String, baseURL: URL) {
+        self.clientId = clientId
+        self.baseURL = baseURL
+    }
 }

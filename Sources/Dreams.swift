@@ -28,14 +28,13 @@ public final class Dreams {
 
     /**
      This method must be called before using the Dreams iOS SDK
-     - parameter clientId: The client id.
-     - parameter baseURL: The base url.
+     - parameter _ configuration: Configuration for  Dreams iOS SDK
 
      # Notes: #
      Call this function in your AppDelegates `application(_:didFinishLaunchingWithOptions:)` .
      */
-    public static func configure(clientId: String, baseURL: URL) {
-        shared.configuration = DreamsConfiguration(clientId: clientId, baseURL: baseURL)
+    public static func configure(_ configuration: DreamsConfiguration) {
+        shared.configuration = configuration
     }
 
     internal init() {}
