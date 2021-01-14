@@ -20,7 +20,7 @@ class ViewController: UIViewController {
 // Example implementation of DreamsDelegate
 //
 extension ViewController: DreamsDelegate {
-    func handleDreamsCredentialsExpired(completion: (DreamsCredentials) -> Void) {
+    func handleDreamsCredentialsExpired(completion: @escaping (DreamsCredentials) -> Void) {
         print("IdToken expired event received")
         
         completion(DreamsCredentials(idToken: "newtoken"))
@@ -30,7 +30,7 @@ extension ViewController: DreamsDelegate {
         print("Telemetry event received: \(name) with payload: \(payload)")
     }
     
-    func handleDreamsAccountProvisionInitiated(completion: () -> Void) {
+    func handleDreamsAccountProvisionInitiated(completion: @escaping () -> Void) {
         print("Account Provision Initiated event received")
 
         completion()
