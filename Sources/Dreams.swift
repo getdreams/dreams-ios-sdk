@@ -10,45 +10,31 @@
 //
 
 import Foundation
-import UIKit
 
-public class Dreams {
-
+public final class Dreams {
+    
     /**
-     The client id from the setup function.
-     */
-    public internal (set) var clientId: String?
+      Must be set before using the Dreams iOS SDK
 
-    /**
-     The base url from the setup function.
+     # Notes: #
+     Set this up in your AppDelegate `application(_:didFinishLaunchingWithOptions:)` .
      */
-    public internal (set) var baseURL: URL?
-
-    /**
-     Boolean indicating if the shared instance is initialized or not.
-     */
-    public internal (set) var initialized: Bool = false
-
+    private(set) var configuration: DreamsConfiguration?
+    
     /**
      The shared singleton instance.
      */
     public static var shared = Dreams()
 
     /**
-     Required setup when using the Dreams iOS SDK
-     - parameter clientId: The client id.
-     - parameter baseURL: The base url.
+     This method must be called before using the Dreams iOS SDK
+     - parameter _ configuration: Configuration for  Dreams iOS SDK
 
      # Notes: #
      Call this function in your AppDelegates `application(_:didFinishLaunchingWithOptions:)` .
      */
-    public static func setup(clientId: String, baseURL: String) {
-        guard let baseURL = URL(string: baseURL) else { return }
-        guard !clientId.isEmpty else { return }
-
-        Dreams.shared.clientId = clientId
-        Dreams.shared.baseURL = baseURL
-        Dreams.shared.initialized = true
+    public static func configure(_ configuration: DreamsConfiguration) {
+        shared.configuration = configuration
     }
 
     internal init() {}

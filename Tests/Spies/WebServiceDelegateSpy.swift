@@ -24,7 +24,7 @@ class WebServiceDelegateSpy: WebServiceDelegate {
         events.append(["message": jsString])
     }
 
-    func webServiceDidReceiveMessage(service: WebServiceType, event: Response, jsonObject: JSONObject?) {
+    func webServiceDidReceiveMessage(service: WebServiceType, event: ResponseEvent, jsonObject: JSONObject?) {
         events.append(["event": event, "jsonObject": jsonObject])
     }
 }

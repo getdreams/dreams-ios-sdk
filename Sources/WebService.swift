@@ -34,8 +34,8 @@ class WebService: NSObject, WebServiceType {
     }
 
     func handleResponseMessage(name: String, body: Any?) {
-        let (e, jsonObject) = transform(name: name, body: body)
-        guard let event = e else { return }
+        let (optionalEvent, jsonObject) = transformResponseMessage(name: name, body: body)
+        guard let event = optionalEvent else { return }
         delegate?.webServiceDidReceiveMessage(service: self, event: event, jsonObject: jsonObject)
     }
 }
@@ -53,8 +53,8 @@ private extension WebService {
         return message
     }
 
-    func transform(name: String, body: Any?) -> (Response?, JSONObject?) {
-        let event = Response(rawValue: name)
+    func transformResponseMessage(name: String, body: Any?) -> (ResponseEvent?, JSONObject?) {
+        let event = ResponseEvent(rawValue: name)
         let jsonObject = body as? JSONObject
         return (event, jsonObject)
     }

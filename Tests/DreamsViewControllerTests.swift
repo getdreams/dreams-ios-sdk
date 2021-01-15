@@ -13,86 +13,68 @@ import XCTest
 @testable import Dreams
 
 class DreamsViewControllerTests: XCTestCase {
+    
+    private var interaction: DreamsNetworkInteractingSpy!
+    private var subject: DreamsViewController!
 
-    override class func setUp() {
+    override func setUp() {
         super.setUp()
-        Dreams.setup(clientId: "clientId", baseURL: "https://www.getdreams.com")
+
+        interaction = DreamsNetworkInteractingSpy()
+    }
+    
+    func testFromInit() {
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!))
+        subject = DreamsViewController()
+    }
+    
+    func testFromNib() {
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!))
+        subject = DreamsViewController(nibName: nil, bundle: nil)
+    }
+    
+    func testLoadView() {
+        subject = DreamsViewController(interaction: interaction)
+        let delegate = DreamsDelegateSpy()
+        subject.use(delegate: delegate)
+        
+        let view = subject.view
+        
+        XCTAssertEqual(interaction.useWebViews.count, 1)
+        XCTAssertTrue(interaction.useWebViews.first === view)
+    }
+    
+    func testUseDelegate() {
+        subject = DreamsViewController(interaction: interaction)
+        let delegate = DreamsDelegateSpy()
+        subject.use(delegate: delegate)
+        
+        XCTAssertEqual(interaction.useDelegates.count, 1)
+        XCTAssertTrue(interaction.useDelegates.first === delegate)
     }
 
-    override class func tearDown() {
-        Dreams.shared.reset()
-        super.tearDown()
-    }
-
-    func testInitialLoad() {
+    func testLaunch() {
+        subject = DreamsViewController(interaction: interaction)
+        let idToken = "aaa"
+        let credentials = DreamsCredentials(idToken: idToken)
         let locale = Locale(identifier: "sv_SE")
-        let delegate = WebServiceDelegateSpy()
-
-        let vc = DreamsViewController()
-        vc.webService.delegate = delegate
-        vc.open(idToken: "idToken", locale: locale)
-
-        let event = delegate.events.last
-        let request = event?["request"] as! URLRequest
-        let httpBody = try! JSONSerialization.jsonObject(with: request.httpBody!) as! [String : Any]
-        let expectedBody: [String: Any] = ["idToken": "idToken", "locale": "sv_SE", "clientId": "clientId"]
-
-        XCTAssertEqual(delegate.events.count, 1)
-        XCTAssertEqual(request.url?.absoluteString, "https://www.getdreams.com")
-        XCTAssertEqual(request.httpMethod, "POST")
-        XCTAssertEqual(NSDictionary(dictionary: expectedBody), NSDictionary(dictionary: httpBody))
+        
+        subject.launch(with: credentials, locale: locale)
+        
+        XCTAssertEqual(interaction.launchCredentials.count, 1)
+        XCTAssertEqual(interaction.launchCredentials.first!.idToken, credentials.idToken)
+        XCTAssertEqual(interaction.launchLocales.count, 1)
+        XCTAssertEqual(interaction.launchLocales.first!, locale)
     }
 
-    func testUpdateIdTokenRequest() {
-        let service = WebServiceSpy()
-        let vc = DreamsViewController()
+    func testUpdateLocale() {
+        subject = DreamsViewController(interaction: interaction)
+        let locale = Locale(identifier: "sv_SE")
 
-        vc.webService = service
-        vc.webService.delegate = vc
-        vc.update(idToken: "anotherIdToken", requestId: "anotherRequestId")
-
-        let event = service.events.last
-        let type = event?["event"] as! Request
-        let jsonObject = event?["jsonObject"] as! JSONObject
-
-        XCTAssertEqual(service.events.count, 1)
-        XCTAssertEqual(type, .updateIdToken)
-        XCTAssertEqual(jsonObject["idToken"] as! String, "anotherIdToken")
-        XCTAssertEqual(jsonObject["requestId"] as! String, "anotherRequestId")
+        subject.update(locale: locale)
+        
+        XCTAssertEqual(interaction.updateLocales.count, 1)
+        XCTAssertEqual(interaction.updateLocales.first!, locale)
     }
 
-    func testUpdateLocaleRequest() {
-        let locale = Locale(identifier: "en_US")
-        let service = WebServiceSpy()
-        let vc = DreamsViewController()
-
-        vc.webService = service
-        vc.webService.delegate = vc
-        vc.update(locale: locale)
-
-        let event = service.events.last
-        let type = event?["event"] as! Request
-        let jsonObject = event?["jsonObject"] as! JSONObject
-
-        XCTAssertEqual(service.events.count, 1)
-        XCTAssertEqual(type, .updateLocale)
-        XCTAssertEqual(jsonObject["locale"] as! String, "en_US")
-    }
-
-    func testAccountProvisionInitiatedRequest() {
-        let service = WebServiceSpy()
-        let vc = DreamsViewController()
-
-        vc.webService = service
-        vc.webService.delegate = vc
-        vc.accountProvisionInitiated(requestId: "requestId")
-
-        let event = service.events.last
-        let type = event?["event"] as! Request
-        let jsonObject = event?["jsonObject"] as! JSONObject
-
-        XCTAssertEqual(service.events.count, 1)
-        XCTAssertEqual(type, .accountProvisionInitiated)
-        XCTAssertEqual(jsonObject["requestId"] as! String, "requestId")
-    }
 }

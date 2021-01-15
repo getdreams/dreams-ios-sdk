@@ -12,9 +12,32 @@
 import UIKit
 import WebKit
 
-public class DreamsViewController: UIViewController {
+public protocol DreamsLaunching: class {
+    /**
+     This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
+     - parameter idToken: User idToken
+     - parameter locale: Selected Locale
+     */
+    func launch(with credentials: DreamsCredentials, locale: Locale)
+}
 
-    public weak var delegate: DreamsViewControllerDelegate?
+public protocol LocaleUpdating: class {
+    /**
+     This method can be called at all times after the DreamsViewController is presented, the Dreams interface will update to selected Locale.
+     - parameter locale: Selected Locale
+     */
+    func update(locale: Locale)
+}
+
+public protocol DreamsDelegateUsing: class {
+    /**
+     This method MUST be called before the ViewController is presented, otherwise delegate won't be able to mediate.
+     - parameter delegate : DreamsDelegate handling events
+     */
+    func use(delegate: DreamsDelegate)
+}
+
+public class DreamsViewController: UIViewController {
 
     private lazy var webView: WKWebView = {
         let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
@@ -22,104 +45,73 @@ public class DreamsViewController: UIViewController {
         return webView
     }()
 
-    internal var webService: WebServiceType = WebService()
-    internal var dreams = Dreams.shared
+    private let interaction: DreamsNetworkInteracting
+    
+    public init(interaction: DreamsNetworkInteracting) {
+        self.interaction = interaction
+        super.init(nibName: nil, bundle: nil)
+    }
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        guard let configuration = Dreams.shared.configuration else {
+            fatalError("Call Dreams.configure() in your AppDelegate")
+        }
+        self.interaction = DreamsNetworkInteractionBuilder.build(configuration: configuration)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
     }
 
     public required init?(coder: NSCoder) {
+        guard let configuration = Dreams.shared.configuration else {
+            fatalError("Call Dreams.configure() in your AppDelegate")
+        }
+        self.interaction = DreamsNetworkInteractionBuilder.build(configuration: configuration)
         super.init(coder: coder)
-        setup()
     }
 
     public override func loadView() {
         view = webView
+        interaction.use(webView: webView)
+    }
+    
+    public override func viewDidLoad() {
+        interaction.didLoad()
+    }
+    
+}
+
+// MARK: DreamsLaunching
+extension DreamsViewController: DreamsLaunching {
+
+    /**
+     This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
+     - parameter idToken: User idToken
+     - parameter locale: Selected Locale
+     */
+    public func launch(with credentials: DreamsCredentials, locale: Locale) {
+        interaction.launch(with: credentials, locale: locale)
     }
 }
 
-extension DreamsViewController: DreamsViewControllerType {
+// MARK: DreamsDelegateUsing
+extension DreamsViewController: DreamsDelegateUsing {
 
-    public func open(idToken: String, locale: Locale) {
-        guard
-            let clientId = dreams.clientId,
-            let baseURL = dreams.baseURL else { return }
-
-        let body = [
-            "idToken": idToken,
-            "locale": locale.identifier,
-            "clientId": clientId
-        ]
-
-        webService.load(url: baseURL, method: "POST", body: body)
+    /**
+     This method MUST be called before the ViewController is presented, otherwise delegate won't be able to mediate.
+     - parameter delegate : DreamsDelegate handling events
+     */
+    public func use(delegate: DreamsDelegate) {
+        interaction.use(delegate: delegate)
     }
+}
 
-    public func update(idToken: String, requestId: String) {
-        let jsonObject: JSONObject = ["idToken": idToken, "requestId":  requestId]
-        send(event: .updateIdToken, with: jsonObject)
-    }
+// MARK: LocaleUpdating
+extension DreamsViewController: LocaleUpdating {
 
+    /**
+     This method can be called at all times after the DreamsViewController is presented, the Dreams interface will update to selected Locale.
+     - parameter locale: Selected Locale
+     */
     public func update(locale: Locale) {
-        let jsonObject: JSONObject = ["locale": locale.identifier]
-        send(event: .updateLocale, with: jsonObject)
-    }
-
-    public func accountProvisionInitiated(requestId: String) {
-        let jsonObject: JSONObject = ["requestId": requestId]
-        send(event: .accountProvisionInitiated, with: jsonObject)
-    }
-}
-
-private extension DreamsViewController {
-
-    func setup() {
-        webService.delegate = self
-
-        Response.allCases.forEach {
-            self.webView
-                .configuration
-                .userContentController
-                .add(webService, name: $0.rawValue)
-        }
-    }
-
-    func send(event: Request, with jsonObject: JSONObject?) {
-        webService.prepareRequestMessage(event: event, with: jsonObject)
-    }
-
-    func handle(event: Response, with jsonObject: JSONObject?) {
-        switch event {
-        case .onIdTokenDidExpire:
-            guard let requestId = jsonObject?["requestId"] as? String else { return }
-            delegate?.dreamsViewControllerDelegateDidReceiveIdTokenExpired(vc: self, requestId: requestId)
-        case .onTelemetryEvent:
-            guard let name = jsonObject?["name"] as? String,
-                  let payload = jsonObject?["payload"] as? JSONObject else { return }
-
-            delegate?.dreamsViewControllerDelegateDidReceiveTelemetryEvent(vc: self, name: name, payload: payload)
-        case .onAccountProvisionRequested:
-            guard let requestId = jsonObject?["requestId"] as? String else { return }
-            delegate?.dreamsViewControllerDelegateDidReceiveAccountProvisioningRequested(vc: self, requestId: requestId)
-        case .onExitRequested:
-            delegate?.dreamsViewControllerDelegateDidReceiveExitRequested(vc: self)
-        }
-    }
-}
-
-
-extension DreamsViewController: WebServiceDelegate {
-
-    func webServiceDidPrepareRequest(service: WebServiceType, urlRequest: URLRequest) {
-        webView.load(urlRequest)
-    }
-
-    func webServiceDidPrepareMessage(service: WebServiceType, jsString: String) {
-        webView.evaluateJavaScript(jsString)
-    }
-
-    func webServiceDidReceiveMessage(service: WebServiceType, event: Response, jsonObject: JSONObject?) {
-        handle(event: event, with: jsonObject)
+        interaction.update(locale: locale)
     }
 }

@@ -13,33 +13,10 @@ import XCTest
 @testable import Dreams
 
 class DreamsTests: XCTestCase {
-
-    override class func tearDown() {
-        Dreams.shared.reset()
-        super.tearDown()
-    }
-
-    func testSetup() {
-        XCTAssertFalse(Dreams.shared.initialized)
-        Dreams.setup(clientId: "clientId", baseURL: "https://getdreams.com")
-        XCTAssertTrue(Dreams.shared.clientId == "clientId")
-        XCTAssertTrue(Dreams.shared.baseURL == URL(string: "https://getdreams.com"))
-        XCTAssertTrue(Dreams.shared.initialized)
-    }
-
-    func testInvalidSetup1() {
-        XCTAssertFalse(Dreams.shared.initialized)
-        Dreams.setup(clientId: "", baseURL: "https://getdreams.com")
-        XCTAssertNil(Dreams.shared.clientId)
-        XCTAssertNil(Dreams.shared.baseURL)
-        XCTAssertFalse(Dreams.shared.initialized)
-    }
-
-    func testInvalidSetup2() {
-        XCTAssertFalse(Dreams.shared.initialized)
-        Dreams.setup(clientId: "clientId", baseURL: "")
-        XCTAssertNil(Dreams.shared.clientId)
-        XCTAssertNil(Dreams.shared.baseURL)
-        XCTAssertFalse(Dreams.shared.initialized)
+    func testConfiguration() {
+        XCTAssertNil(Dreams.shared.configuration)
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!))
+        XCTAssertEqual(Dreams.shared.configuration!.baseURL, URL(string: "https://getdreams.com")!)
+        XCTAssertEqual(Dreams.shared.configuration!.clientId, "clientId")
     }
 }
