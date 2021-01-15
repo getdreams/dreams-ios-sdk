@@ -102,12 +102,14 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
     private func loadBaseURL(credentials: DreamsCredentials, locale: Locale) {
     
         let body = [
-            "idToken": credentials.idToken,
+            "token": credentials.idToken,
+            "client_id": configuration.clientId,
             "locale": locale.identifier,
-            "clientId": configuration.clientId
         ]
+        
+        let verifyTokenURL = configuration.baseURL.appendingPathComponent("/users/verify_token")
 
-        webService.load(url: configuration.baseURL, method: "POST", body: body)
+        webService.load(url: verifyTokenURL, method: "POST", body: body)
     }
 }
 

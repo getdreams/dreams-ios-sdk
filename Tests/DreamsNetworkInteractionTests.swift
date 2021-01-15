@@ -49,12 +49,12 @@ final class DreamsNetworkInteractionTests: XCTestCase {
     func test_launch_calledCorrectRequest() {
         subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv_SE"))
 
-        let expectedBody: [String: Any] = ["idToken": "idToken", "locale": "sv_SE", "clientId": "clientId"]
+        let expectedBody: [String: Any] = ["token": "idToken", "locale": "sv_SE", "client_id": "clientId"]
         let httpBody = service.load_bodys.first!
         XCTAssertEqual(service.load_urls.count, 1)
         XCTAssertEqual(service.load_bodys.count, 1)
         XCTAssertEqual(service.load_methods.count, 1)
-        XCTAssertEqual(service.load_urls.first?.absoluteString, "https://www.getdreams.com")
+        XCTAssertEqual(service.load_urls.first?.absoluteString, "https://www.getdreams.com/users/verify_token")
         XCTAssertEqual(service.load_methods.first, "POST")
         XCTAssertEqual(NSDictionary(dictionary: expectedBody), NSDictionary(dictionary: httpBody))
     }
