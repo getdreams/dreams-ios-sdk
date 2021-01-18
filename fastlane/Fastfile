@@ -1,0 +1,21 @@
+platform :ios do
+
+  desc 'Run Unit Tests'
+  lane :unit_test do
+    clear_derived_data()
+    scan(
+      workspace: "Dreams.xcworkspace",
+      scheme: 'DreamsTests',
+      device: 'iPhone 12',
+      clean: false,
+      skip_build: true,
+      skip_slack: true,
+      xcargs: ["build-for-testing"]
+    )
+  end
+
+  desc 'Run all available tests'
+  lane :test do
+    unit_test
+  end
+end
