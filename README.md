@@ -65,7 +65,7 @@ present(navigation, animated: true) {
 
 ```
 
-## DreamsDelegate
+### DreamsDelegate
 
 This method is called when credentials passed whith `launch(with:locale:)` expired and new ones must be generated.
 
@@ -100,4 +100,18 @@ func handleExitRequest() {
     // For example:
     presentedViewController?.dismiss(animated: true, completion: nil)
 }
+```
+
+## Unit Tests
+
+To run unit tests manually:
+
+```bash
+xcodebuild -workspace "./Dreams.xcworkspace" -scheme "DreamsTests" -destination "platform=iOS Simulator,name=iPhone 8,OS=14.3" build-for-testing test
+```
+
+Using fastlane:
+
+```bash
+fastlane ios test
 ```
