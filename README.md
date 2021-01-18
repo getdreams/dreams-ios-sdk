@@ -104,14 +104,10 @@ func handleExitRequest() {
 
 ## Unit Tests
 
-To run unit tests manually:
+You can run rests using [fastlane](./fastlane/README.md).
+
+To run unit tests manually use this command:
 
 ```bash
 xcodebuild -workspace "./Dreams.xcworkspace" -scheme "DreamsTests" -destination "platform=iOS Simulator,name=iPhone 8,OS=14.3" build-for-testing test
-```
-
-Using fastlane:
-
-```bash
-fastlane ios test
 ```
