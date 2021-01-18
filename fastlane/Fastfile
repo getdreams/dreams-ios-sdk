@@ -6,7 +6,7 @@ platform :ios do
     scan(
       workspace: "Dreams.xcworkspace",
       scheme: 'DreamsTests',
-      device: 'iPhone 12',
+      device: 'iPhone 8',
       clean: false,
       skip_build: true,
       skip_slack: true,
