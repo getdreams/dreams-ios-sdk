@@ -1,4 +1,10 @@
-# Dreams iOS SDK
+# Dreams iOS SDK 
+
+[![Build Status](https://app.bitrise.io/app/a85e7d5e048cafc5/status.svg?token=ZnRPb1JZjxkq8YEt07RJCQ&branch=main)](https://app.bitrise.io/app/a85e7d5e048cafc5)
+[![Version](https://img.shields.io/cocoapods/v/Dreams.svg?style=flat)](https://cocoapods.org/pods/Dreams)
+[![License](https://img.shields.io/cocoapods/l/Dreams.svg?style=flat)](https://cocoapods.org/pods/Dreams)
+[![Platform](https://img.shields.io/cocoapods/p/Dreams.svg?style=flat)](https://cocoapods.org/pods/Dreams)
+![Swift5](https://img.shields.io/badge/%20in-swift%205.0-orange.svg)
 
 ## Requirements
 - iOS 10.3+
@@ -8,10 +14,13 @@
 
 ### Cocoapods
 To integrate Dreams into your project using Cocoapods, add `Dreams` to your `Podfile`.
+
 ```ruby
 pod 'Dreams'
 ```
-Then run the following command.
+
+Then run the following command:
+
 ```bash
 $ pod install
 ```
