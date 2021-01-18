@@ -10,6 +10,7 @@ platform :ios do
       clean: false,
       skip_build: true,
       skip_slack: true,
+      derived_data_path: "~/Library/Developer/Xcode/DerivedData",
       xcargs: ["build-for-testing"]
     )
   end
