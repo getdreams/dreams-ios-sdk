@@ -1,4 +1,5 @@
 # Dreams iOS SDK 
+![Dreams](https://raw.githubusercontent.com/getdreams/dreams-ios-sdk/main/Dreams.jpg)
 
 [![Build Status](https://app.bitrise.io/app/a85e7d5e048cafc5/status.svg?token=ZnRPb1JZjxkq8YEt07RJCQ&branch=main)](https://app.bitrise.io/app/a85e7d5e048cafc5)
 [![Version](https://img.shields.io/cocoapods/v/Dreams.svg?style=flat)](https://cocoapods.org/pods/Dreams)
