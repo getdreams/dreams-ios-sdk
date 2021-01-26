@@ -70,7 +70,23 @@ let userCredentials = DreamsCredentials(idToken: "idToken")
 ```swift
 let navigation = UINavigationController(rootViewController: viewController)
 present(navigation, animated: true) {
-    viewController.launch(with: userCredentials)
+    viewController.launch(with: userCredentials, locale: Locale.current) { result in
+        switch result {
+        case .success:
+            () // Dreams did launch successfully
+        case .failure(let launchError):
+            switch launchError {
+            case .alreadyLaunched:
+                () // You cannot launch Dreams when launching is in progess
+            case .invalidCredentials:
+                () // The provided credentials were invalid
+            case .httpErrorStatus(let httpStatus):
+                print(httpStatus) // The server returned a HTTP error status
+            case .requestFailure(let error):
+                print(error) // Other server errors (NSError instance)
+            }
+        }
+    }
 }
 
 ```

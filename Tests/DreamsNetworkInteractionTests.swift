@@ -59,6 +59,28 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         XCTAssertEqual(NSDictionary(dictionary: expectedBody), NSDictionary(dictionary: httpBody))
     }
     
+    func test_launch_passedCompletionToWebService() {
+        let completion: (Result<Void, DreamsLaunchingError>) -> Void = { result in
+            
+        }
+
+        subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv_SE"), completion: completion)
+
+        XCTAssertEqual(service.completions.count, 1)
+    }
+    
+    func test_launch_sucess_notified() {
+        var called = false
+        let completion: (Result<Void, DreamsLaunchingError>) -> Void = { result in
+            called = true
+        }
+
+        subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv_SE"), completion: completion)
+        service.completions.first!(.success(()))
+        
+        XCTAssertTrue(called)
+    }
+    
     func test_webServiceDidPrepareRequest_requestedWebView() {
         let request = URLRequest(url: URL(string: "https://www.getdreams.com")!)
         subject.webServiceDidPrepareRequest(service: service, urlRequest: request)

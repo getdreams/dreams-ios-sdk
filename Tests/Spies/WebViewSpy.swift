@@ -15,6 +15,8 @@ import WebKit
 
 final class WebViewSpy: WebViewProtocol {
     
+    var navigationDelegate: WKNavigationDelegate?
+    
     var configuration: WKWebViewConfiguration
     
     var scriptMessageHandlers: [WKScriptMessageHandler] = []

@@ -6,12 +6,29 @@ import Dreams
 //
 class ViewController: UIViewController {
     @IBAction func presentDreams() {
-        let vc = DreamsViewController()
-        vc.use(delegate: self)
-        let nvc = UINavigationController(rootViewController: vc)
-        nvc.modalPresentationStyle = .fullScreen
-        present(nvc, animated: true) {
-            vc.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale.current)
+        let viewController = DreamsViewController()
+        let userCredentials = DreamsCredentials(idToken: "idToken")
+        viewController.use(delegate: self)
+        let navigation = UINavigationController(rootViewController: viewController)
+        navigation.modalPresentationStyle = .fullScreen
+        present(navigation, animated: true) {
+            viewController.launch(with: userCredentials, locale: Locale.current) { result in
+                switch result {
+                case .success:
+                    () // Dreams did launch successfully
+                case .failure(let launchError):
+                    switch launchError {
+                    case .alreadyLaunched:
+                        () // You cannot launch Dreams when launching is in progess
+                    case .invalidCredentials:
+                        () // The provided credentials were invalid
+                    case .httpErrorStatus(let httpStatus):
+                        print(httpStatus) // The server returned a HTTP error status
+                    case .requestFailure(let error):
+                        print(error) // Other server errors (NSError instance)
+                    }
+                }
+            }
         }
     }
 }

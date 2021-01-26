@@ -15,10 +15,29 @@ import WebKit
 public protocol DreamsLaunching: class {
     /**
      This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
+     
      - parameter idToken: User idToken
      - parameter locale: Selected Locale
+     - parameter completion: Called when Dreams did launch successfuly or failed
+     
+     - Attention: This method MUST be called on main thread, when called from background threads it will crash to avoid undefined behaviour.
+        
      */
-    func launch(with credentials: DreamsCredentials, locale: Locale)
+    func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
+}
+
+public extension DreamsLaunching {
+    /**
+     This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
+
+     - parameter idToken: User idToken
+     - parameter locale: Selected Locale
+     
+     - Attention: This method MUST be called on main thread, when called from background threads it will crash to avoid undefined behaviour.
+     */
+    func launch(with credentials: DreamsCredentials, locale: Locale) {
+        launch(with: credentials, locale: locale, completion: nil)
+    }
 }
 
 public protocol LocaleUpdating: class {
@@ -84,11 +103,19 @@ extension DreamsViewController: DreamsLaunching {
 
     /**
      This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
+     
      - parameter idToken: User idToken
      - parameter locale: Selected Locale
+     - parameter completion: Called when Dreams did launch successfuly or failed
+    
+     - Attention: This method MUST be called on main thread, when called from background threads it will crash to avoid undefined behaviour.
+        
      */
-    public func launch(with credentials: DreamsCredentials, locale: Locale) {
-        interaction.launch(with: credentials, locale: locale)
+    public func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
+        guard Thread.isMainThread else {
+            fatalError("Launch can be only called on main thread!")
+        }
+        interaction.launch(with: credentials, locale: locale, completion: completion)
     }
 }
 

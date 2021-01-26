@@ -1,5 +1,4 @@
 //
-//  WebViewAdapter
 //  Dreams
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,6 +13,7 @@ import WebKit
 
 public protocol WebViewProtocol: AnyObject {
     var configuration: WKWebViewConfiguration { get }
+    var navigationDelegate: WKNavigationDelegate? { get set }
     func add(_ scriptMessageHandler: WKScriptMessageHandler, name: String)
     func load(_ request: URLRequest) -> WKNavigation?
     func evaluateJavaScript(_ javaScriptString: String, completionHandler: ((Any?, Error?) -> Void)?)

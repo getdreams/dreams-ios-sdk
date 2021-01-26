@@ -12,6 +12,9 @@
 		1A0C2C9C25AC9C9100279C0C /* DreamsCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2C9B25AC9C9100279C0C /* DreamsCredentials.swift */; };
 		1A0C2CB425ADDA6C00279C0C /* DreamsNetworkInteractionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2CB325ADDA6C00279C0C /* DreamsNetworkInteractionBuilder.swift */; };
 		1A0C2CCE25AF59A700279C0C /* WebViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2CCD25AF59A700279C0C /* WebViewProtocol.swift */; };
+		1A4E0C7B25B87F5000D453B1 /* DreamsLaunchingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4E0C7A25B87F5000D453B1 /* DreamsLaunchingError.swift */; };
+		1A4E0D9025C0599A00D453B1 /* FakeResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4E0D8F25C0599A00D453B1 /* FakeResponseMock.swift */; };
+		1AA0023625C05FF4000C5883 /* MockNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0023525C05FF4000C5883 /* MockNavigation.swift */; };
 		1AAC42C025B0928200A56457 /* WebViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC42BF25B0928200A56457 /* WebViewSpy.swift */; };
 		1AAC42C325B0970700A56457 /* DreamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD92B25262F7E00E68FA7 /* DreamsTests.swift */; };
 		1AAC42C625B0989000A56457 /* DreamsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CD92725262F1600E68FA7 /* DreamsViewControllerTests.swift */; };
@@ -50,6 +53,9 @@
 		1A0C2C9B25AC9C9100279C0C /* DreamsCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsCredentials.swift; sourceTree = "<group>"; };
 		1A0C2CB325ADDA6C00279C0C /* DreamsNetworkInteractionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsNetworkInteractionBuilder.swift; sourceTree = "<group>"; };
 		1A0C2CCD25AF59A700279C0C /* WebViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewProtocol.swift; sourceTree = "<group>"; };
+		1A4E0C7A25B87F5000D453B1 /* DreamsLaunchingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsLaunchingError.swift; sourceTree = "<group>"; };
+		1A4E0D8F25C0599A00D453B1 /* FakeResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseMock.swift; sourceTree = "<group>"; };
+		1AA0023525C05FF4000C5883 /* MockNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigation.swift; sourceTree = "<group>"; };
 		1AAC42BF25B0928200A56457 /* WebViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewSpy.swift; sourceTree = "<group>"; };
 		1AAC42C925B0993800A56457 /* DreamsNetworkInteractingSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsNetworkInteractingSpy.swift; sourceTree = "<group>"; };
 		1AAC42CF25B09BF800A56457 /* DreamsNetworkInteractionBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsNetworkInteractionBuilderTests.swift; sourceTree = "<group>"; };
@@ -107,6 +113,15 @@
 			path = Spies;
 			sourceTree = "<group>";
 		};
+		1A4E0D8E25C0597600D453B1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				1A4E0D8F25C0599A00D453B1 /* FakeResponseMock.swift */,
+				1AA0023525C05FF4000C5883 /* MockNavigation.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		FA343FE2251CDD950073F33E = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +159,7 @@
 				FAF52DFF252F2ADE0099D38F /* WebServiceDelegate.swift */,
 				1A0C2CB325ADDA6C00279C0C /* DreamsNetworkInteractionBuilder.swift */,
 				1A0C2CCD25AF59A700279C0C /* WebViewProtocol.swift */,
+				1A4E0C7A25B87F5000D453B1 /* DreamsLaunchingError.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -156,6 +172,7 @@
 				FA7378342588F0B300B662F3 /* DreamsNetworkInteractionTests.swift */,
 				FA6CD92725262F1600E68FA7 /* DreamsViewControllerTests.swift */,
 				FA6CD8E12525EB2700E68FA7 /* WebServiceTests.swift */,
+				1A4E0D8E25C0597600D453B1 /* Mocks */,
 				1A0C2CC825AF562700279C0C /* Spies */,
 				FA6CD8E32525EB2700E68FA7 /* Info.plist */,
 			);
@@ -272,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A4E0C7B25B87F5000D453B1 /* DreamsLaunchingError.swift in Sources */,
 				1A0C2C9C25AC9C9100279C0C /* DreamsCredentials.swift in Sources */,
 				1A0C2CB425ADDA6C00279C0C /* DreamsNetworkInteractionBuilder.swift in Sources */,
 				FA482EA3251CE91F00D6006B /* DreamsViewController.swift in Sources */,
@@ -293,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AAC42C625B0989000A56457 /* DreamsViewControllerTests.swift in Sources */,
+				1AA0023625C05FF4000C5883 /* MockNavigation.swift in Sources */,
 				1AAC42C325B0970700A56457 /* DreamsTests.swift in Sources */,
 				FA6CD948252C6A9900E68FA7 /* WebServiceSpy.swift in Sources */,
 				FA6CD941252C6A8000E68FA7 /* DreamsDelegateSpy.swift in Sources */,
@@ -301,6 +320,7 @@
 				FA6CD953252C6AF700E68FA7 /* WebServiceDelegateSpy.swift in Sources */,
 				FA6CD8E22525EB2700E68FA7 /* WebServiceTests.swift in Sources */,
 				1AAC42CA25B0993800A56457 /* DreamsNetworkInteractingSpy.swift in Sources */,
+				1A4E0D9025C0599A00D453B1 /* FakeResponseMock.swift in Sources */,
 				FAABFF482588F2BE00302A40 /* DreamsNetworkInteractionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

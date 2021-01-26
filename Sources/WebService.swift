@@ -14,17 +14,28 @@ import WebKit
 
 typealias JSONObject = [String: Any]
 
-class WebService: NSObject, WebServiceType {
+final class WebService: NSObject, WebServiceType {
 
     var delegate: WebServiceDelegate?
+    
+    private var completion: ((Result<Void, DreamsLaunchingError>) -> Void)?
+    private var isRunning: Bool = false
 
-    func load(url: URL, method: String, body: JSONObject? = nil) {
+    func load(url: URL, method: String, body: JSONObject? = nil, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
+        guard !isRunning else {
+            completion?(.failure(.alreadyLaunched))
+            return
+        }
+        isRunning = true
+        self.completion = completion
+        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method
 
         if let httpBody = body {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: httpBody)
         }
+        
         delegate?.webServiceDidPrepareRequest(service: self, urlRequest: urlRequest)
     }
 
@@ -64,5 +75,43 @@ extension WebService {
 
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         handleResponseMessage(name: message.name, body: message.body)
+    }
+}
+
+// MARK: WKNavigationDelegate
+
+extension WebService: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor
+                 navigationResponse: WKNavigationResponse,
+                 decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        guard let response = navigationResponse.response as? HTTPURLResponse else {
+            decisionHandler(.allow)
+            return
+        }
+        switch response.statusCode {
+        case 200...299:
+            handleSuccess()
+        case 422:
+            handleError(.invalidCredentials)
+        default:
+            handleError(.httpErrorStatus(response.statusCode))
+        }
+        decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        handleError(.requestFailure(error as NSError))
+    }
+    
+    private func handleError(_ error: DreamsLaunchingError) {
+        completion?(.failure(error))
+        completion = nil
+        isRunning = false
+    }
+    
+    private func handleSuccess() {
+        completion?(.success(()))
+        completion = nil
+        isRunning = false
     }
 }
