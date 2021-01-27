@@ -10,6 +10,7 @@
 //
 
 import Foundation
+import WebKit
 
 // MARK: DreamsNetworkInteracting
 
@@ -17,8 +18,14 @@ public protocol DreamsNetworkInteracting {
     func didLoad()
     func use(webView: WebViewProtocol)
     func use(delegate: DreamsDelegate)
-    func launch(with credentials: DreamsCredentials, locale: Locale)
+    func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
     func update(locale: Locale)
+}
+
+extension DreamsNetworkInteracting {
+    func launch(with credentials: DreamsCredentials, locale: Locale) {
+        launch(with: credentials, locale: locale, completion: nil)
+    }
 }
 
 // MARK: DreamsNetworkInteraction
@@ -45,14 +52,15 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
     public func use(webView: WebViewProtocol) {
         self.webView = webView
         setUpUserContentController()
+        setUpNavigationDelegate()
     }
     
     public func use(delegate: DreamsDelegate) {
         self.delegate = delegate
     }
     
-    public func launch(with credentials: DreamsCredentials, locale: Locale) {
-        loadBaseURL(credentials: credentials, locale: locale)
+    public func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
+        loadBaseURL(credentials: credentials, locale: locale, completion: completion)
     }
     
     public func update(locale: Locale) {
@@ -99,7 +107,11 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         }
     }
     
-    private func loadBaseURL(credentials: DreamsCredentials, locale: Locale) {
+    private func setUpNavigationDelegate() {
+        webView.navigationDelegate = webService
+    }
+    
+    private func loadBaseURL(credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
     
         let body = [
             "token": credentials.idToken,
@@ -109,7 +121,7 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         
         let verifyTokenURL = configuration.baseURL.appendingPathComponent("/users/verify_token")
 
-        webService.load(url: verifyTokenURL, method: "POST", body: body)
+        webService.load(url: verifyTokenURL, method: "POST", body: body, completion: completion)
     }
 }
 

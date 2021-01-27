@@ -14,19 +14,23 @@ import WebKit
 @testable import Dreams
 
 class WebServiceSpy: NSObject, WebServiceType {
-    
+
     var delegate: WebServiceDelegate?
     
     var events: [Request] = []
     var jsonObjects: [JSONObject] = []
+    var completions: [((Result<Void, DreamsLaunchingError>) -> Void)] = []
     
     var load_urls: [URL] = []
     var load_methods: [String] = []
     var load_bodys: [JSONObject] = []
     
-    func load(url: URL, method: String, body: JSONObject?) {
+    func load(url: URL, method: String, body: JSONObject?, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
         load_urls.append(url)
         load_methods.append(method)
+        if let completion = completion {
+            completions.append(completion)
+        }
         guard let body = body else { return }
         load_bodys.append(body)
     }

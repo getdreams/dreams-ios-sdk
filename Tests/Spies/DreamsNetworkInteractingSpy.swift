@@ -13,10 +13,12 @@ import Foundation
 @testable import Dreams
 
 final class DreamsNetworkInteractingSpy: DreamsNetworkInteracting {
+
     var didLoadCount: Int = 0
     var useWebViews: [WebViewProtocol] = []
     var useDelegates: [DreamsDelegate] = []
     var launchCredentials: [DreamsCredentials] = []
+    var completions: [((Result<Void, DreamsLaunchingError>) -> Void)] = []
     var launchLocales: [Locale] = []
     var updateLocales: [Locale] = []
     
@@ -32,14 +34,15 @@ final class DreamsNetworkInteractingSpy: DreamsNetworkInteracting {
         useDelegates.append(delegate)
     }
     
-    func launch(with credentials: DreamsCredentials, locale: Locale) {
+    func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
         launchCredentials.append(credentials)
         launchLocales.append(locale)
+        if let completion = completion {
+            completions.append(completion)
+        }
     }
     
     func update(locale: Locale) {
         updateLocales.append(locale)
     }
-    
-    
 }

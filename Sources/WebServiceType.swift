@@ -12,7 +12,7 @@
 import Foundation
 import WebKit
 
-protocol WebServiceType: WKScriptMessageHandler {
+protocol WebServiceType: WKScriptMessageHandler, WKNavigationDelegate  {
 
     /**
      The object that acts as the delegate of the web service.
@@ -28,7 +28,7 @@ protocol WebServiceType: WKScriptMessageHandler {
      # Notes: #
      If the delegate property is set, calling this function will trigger the `webServiceDidPrepareRequest:service:urlRequest: delegate callback`
      */
-    func load(url: URL, method: String, body: JSONObject?)
+    func load(url: URL, method: String, body: JSONObject?, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
 
     /**
      Prepare request message to be sent to the web view.
