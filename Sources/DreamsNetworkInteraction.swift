@@ -12,22 +12,6 @@
 import Foundation
 import WebKit
 
-// MARK: DreamsNetworkInteracting
-
-public protocol DreamsNetworkInteracting {
-    func didLoad()
-    func use(webView: WebViewProtocol)
-    func use(delegate: DreamsDelegate)
-    func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
-    func update(locale: Locale)
-}
-
-extension DreamsNetworkInteracting {
-    func launch(with credentials: DreamsCredentials, locale: Locale) {
-        launch(with: credentials, locale: locale, completion: nil)
-    }
-}
-
 // MARK: DreamsNetworkInteraction
 
 public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
