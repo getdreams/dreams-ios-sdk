@@ -18,6 +18,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
     private var service: WebServiceSpy!
     private var webView: WebViewSpy!
     private var delegate: DreamsDelegateSpy!
+    private var localeFormatter: LocaleFormatterMock!
     
     private var subject: DreamsNetworkInteraction!
     
@@ -25,8 +26,10 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         let configuration = DreamsConfiguration(clientId: "clientId",
                                                 baseURL: URL(string: "https://www.getdreams.com")!)
         service = WebServiceSpy()
+        localeFormatter = LocaleFormatterMock()
         subject = DreamsNetworkInteraction(configuration: configuration,
-                                                    webService: service)
+                                           webService: service,
+                                           localeFormatter: localeFormatter)
         delegate = DreamsDelegateSpy()
         subject.use(delegate: delegate)
         
@@ -45,11 +48,25 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         
         XCTAssertEqual(webView.scriptMessageHandlers.count, 4)
     }
+
+    func test_launch_didCallLocaleFormatter() {
+        let localeId = "sv"
+        let locale = Locale(identifier: localeId)
+
+        subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: locale)
+
+        XCTAssertEqual(localeFormatter.formatsGiven.count, 1)
+        XCTAssertEqual(localeFormatter.localesGiven.count, 1)
+        XCTAssertEqual(localeFormatter.formatsGiven.first!, .bcp47)
+        XCTAssertEqual(localeFormatter.localesGiven.first!, locale)
+    }
     
     func test_launch_calledCorrectRequest() {
-        subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv_SE"))
+        localeFormatter.returnString = "sv"
 
-        let expectedBody: [String: Any] = ["token": "idToken", "locale": "sv_SE", "client_id": "clientId"]
+        subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv"))
+
+        let expectedBody: [String: Any] = ["token": "idToken", "locale": "sv", "client_id": "clientId"]
         let httpBody = service.load_bodys.first!
         XCTAssertEqual(service.load_urls.count, 1)
         XCTAssertEqual(service.load_bodys.count, 1)

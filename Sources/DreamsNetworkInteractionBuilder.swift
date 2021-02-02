@@ -14,6 +14,7 @@ import Foundation
 public enum DreamsNetworkInteractionBuilder {
     static func build(configuration: DreamsConfiguration) -> DreamsNetworkInteracting & WebServiceDelegate {
         let webService = WebService()
-        return DreamsNetworkInteraction(configuration: configuration, webService: webService)
+        let localeFormatter = LocaleFormatter()
+        return DreamsNetworkInteraction(configuration: configuration, webService: webService, localeFormatter: localeFormatter)
     }
 }

@@ -18,13 +18,15 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
 
     private let webService: WebServiceType
     private let configuration: DreamsConfiguration
+    private let localeFormatter: LocaleFormatting
     
     private weak var webView: WebViewProtocol!
     private weak var delegate: DreamsDelegate?
     
-    init(configuration: DreamsConfiguration, webService: WebServiceType) {
+    init(configuration: DreamsConfiguration, webService: WebServiceType, localeFormatter: LocaleFormatting) {
         self.configuration = configuration
         self.webService = webService
+        self.localeFormatter = localeFormatter
     }
     
     // MARK: Public
@@ -100,7 +102,7 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         let body = [
             "token": credentials.idToken,
             "client_id": configuration.clientId,
-            "locale": locale.identifier,
+            "locale": localeFormatter.format(locale: locale, format: .bcp47),
         ]
         
         let verifyTokenURL = configuration.baseURL.appendingPathComponent("/users/verify_token")
