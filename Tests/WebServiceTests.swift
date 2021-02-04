@@ -34,6 +34,7 @@ class WebServiceTests: XCTestCase {
         let event = spyDelegate.events.last
         let request = event?["request"] as! URLRequest
 
+        XCTAssertEqual(request.value(forHTTPHeaderField: "Content-Type"), "application/json")
         XCTAssertEqual(request.url, mockURL)
         XCTAssertEqual(request.httpMethod, "POST")
         XCTAssertEqual(request.httpBody, try! JSONSerialization.data(withJSONObject: ["test": "test"]))

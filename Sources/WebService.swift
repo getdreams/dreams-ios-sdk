@@ -16,6 +16,11 @@ typealias JSONObject = [String: Any]
 
 final class WebService: NSObject, WebServiceType {
 
+    private enum Constants {
+        static let jsonMimetype = "application/json"
+        static let headerContentType = "Content-Type"
+    }
+
     var delegate: WebServiceDelegate?
     
     private var completion: ((Result<Void, DreamsLaunchingError>) -> Void)?
@@ -31,6 +36,8 @@ final class WebService: NSObject, WebServiceType {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method
+        urlRequest.addValue(Constants.jsonMimetype,
+                            forHTTPHeaderField: Constants.headerContentType)
 
         if let httpBody = body {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: httpBody)
