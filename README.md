@@ -33,13 +33,13 @@ If you prefer not to use Cocoapods, you can simply integrate Dreams into your pr
 
 ## Usage
 
-1. Import `Dreams` in your `AppDelegate`.
+1. Import `Dreams` in your `AppDelegate`:
 
 ```swift
 import Dreams
 ```
     
-2. Add the following to your `application:didFinishLaunchingWithOptions:` in your `AppDelegate`.
+2. Add the following to your `application:didFinishLaunchingWithOptions:` in your `AppDelegate`:
 
 
 ```swift
@@ -47,29 +47,29 @@ let configuration = DreamsConfiguration(clientId: "your_client_id", baseURL: URL
 Dreams.configure(configuration)
 ```
 
-3. Create an instance of a `DreamsViewController`. This is just one example you can use it however you like including from Storyboards and xib's.
+3. Create an instance of a `DreamsViewController`. This is just one example you can use it however you like including from Storyboards and xib's:
 
 ```swift
  let viewController = DreamsViewController()
 ```
     
-4. Set the delegate and implement the `DreamsDelegate` methods.
+4. Set the delegate and implement the `DreamsDelegate` methods:
 
 ```swift
 viewController.use(delegate: self)
 ```
     
-5. Prepare user's credentials.
+5. Prepare user's credentials:
 
 ```swift 
 let userCredentials = DreamsCredentials(idToken: "idToken")
 ```
 
-6. Present ViewController and then launch Dreams.
+6. Present ViewController (as fullscreen modal) and then launch Dreams:
 
 ```swift
-let navigation = UINavigationController(rootViewController: viewController)
-present(navigation, animated: true) {
+viewController.modalPresentationStyle = .fullScreen
+present(viewController, animated: true) {
     viewController.launch(with: userCredentials, locale: Locale.current) { result in
         switch result {
         case .success:
@@ -90,6 +90,12 @@ present(navigation, animated: true) {
 }
 
 ```
+
+### Safe Area
+
+Dreams interface is leveraging the Safe Area Layout Guides information to adjust the interface to different screens. Do not disable `Use Safe Area Layout Guides` in Interface Builder. 
+
+Do not modify `layoutMargins` or `directionalLayoutMargins` in parent view controller when `DreamsViewController` is presented as a child view controller. 
 
 ### DreamsDelegate
 
