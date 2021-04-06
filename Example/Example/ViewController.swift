@@ -9,9 +9,8 @@ class ViewController: UIViewController {
         let viewController = DreamsViewController()
         let userCredentials = DreamsCredentials(idToken: "idToken")
         viewController.use(delegate: self)
-        let navigation = UINavigationController(rootViewController: viewController)
-        navigation.modalPresentationStyle = .fullScreen
-        present(navigation, animated: true) {
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true) {
             viewController.launch(with: userCredentials, locale: Locale.current) { result in
                 switch result {
                 case .success:
