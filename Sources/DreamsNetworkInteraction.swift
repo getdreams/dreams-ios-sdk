@@ -22,6 +22,7 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
     
     private weak var webView: WebViewProtocol!
     private weak var delegate: DreamsDelegate?
+    private weak var navigation: ViewControllerPresenting?
     
     init(configuration: DreamsConfiguration, webService: WebServiceType, localeFormatter: LocaleFormatting) {
         self.configuration = configuration
@@ -43,6 +44,10 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
     
     public func use(delegate: DreamsDelegate) {
         self.delegate = delegate
+    }
+
+    public func use(navigation: ViewControllerPresenting) {
+        self.navigation = navigation
     }
     
     public func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
@@ -74,6 +79,11 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
             }
         case .onExitRequested:
             delegate?.handleExitRequest()
+        case .share:
+            guard let text = jsonObject?["text"] as? String else { return }
+            let title = jsonObject?["title"] as? String
+            let url = jsonObject?["url"] as? String
+            share(text: text, title: title, urlString: url)
         }
     }
     
@@ -95,6 +105,16 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
     
     private func setUpNavigationDelegate() {
         webView.navigationDelegate = webService
+    }
+
+    private func share(text: String, title: String?, urlString: String?) {
+        var url: URL? = nil
+        if let urlString = urlString {
+            url = URL(string: urlString)
+        }
+        let items: [Any] = ([url, text] as [Any?]).compactMap({ $0 })
+        let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        navigation?.present(viewController: activity)
     }
     
     private func loadBaseURL(credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {

@@ -17,6 +17,7 @@ final class DreamsNetworkInteractingSpy: DreamsNetworkInteracting {
     var didLoadCount: Int = 0
     var useWebViews: [WebViewProtocol] = []
     var useDelegates: [DreamsDelegate] = []
+    var useNavigations: [ViewControllerPresenting] = []
     var launchCredentials: [DreamsCredentials] = []
     var completions: [((Result<Void, DreamsLaunchingError>) -> Void)] = []
     var launchLocales: [Locale] = []
@@ -44,5 +45,9 @@ final class DreamsNetworkInteractingSpy: DreamsNetworkInteracting {
     
     func update(locale: Locale) {
         updateLocales.append(locale)
+    }
+
+    func use(navigation: ViewControllerPresenting) {
+        useNavigations.append(navigation)
     }
 }

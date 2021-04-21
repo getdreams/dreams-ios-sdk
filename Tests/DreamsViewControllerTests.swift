@@ -42,6 +42,9 @@ class DreamsViewControllerTests: XCTestCase {
         
         XCTAssertEqual(interaction.useWebViews.count, 1)
         XCTAssertTrue(interaction.useWebViews.first === view)
+
+        XCTAssertEqual(interaction.useNavigations.count, 1)
+        XCTAssertTrue(interaction.useNavigations.first === subject)
     }
     
     func testUseDelegate() {
