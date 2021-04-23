@@ -13,12 +13,22 @@ import XCTest
 import WebKit
 @testable import Dreams
 
+final class NavigationMock: ViewControllerPresenting {
+
+    var presentViewControllers: [UIViewController] = []
+
+    func present(viewController: UIViewController) {
+        presentViewControllers.append(viewController)
+    }
+}
+
 final class DreamsNetworkInteractionTests: XCTestCase {
     
     private var service: WebServiceSpy!
     private var webView: WebViewSpy!
     private var delegate: DreamsDelegateSpy!
     private var localeFormatter: LocaleFormatterMock!
+    private var navigationMock: NavigationMock!
     
     private var subject: DreamsNetworkInteraction!
     
@@ -30,6 +40,9 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         subject = DreamsNetworkInteraction(configuration: configuration,
                                            webService: service,
                                            localeFormatter: localeFormatter)
+        navigationMock = NavigationMock()
+        subject.use(navigation: navigationMock)
+
         delegate = DreamsDelegateSpy()
         subject.use(delegate: delegate)
         
@@ -46,7 +59,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
     func test_didLoad_addedHandlers() {
         subject.didLoad()
         
-        XCTAssertEqual(webView.scriptMessageHandlers.count, 4)
+        XCTAssertEqual(webView.scriptMessageHandlers.count, 5)
     }
 
     func test_launch_didCallLocaleFormatter() {
@@ -175,6 +188,16 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         
         let expectedJsonObject =  ["requestId": "request_id", "idToken": token]
         XCTAssertEqual(NSDictionary(dictionary: service.jsonObjects.first!), NSDictionary(dictionary: expectedJsonObject))
+    }
+
+    func test_webServiceDidReceiveMessage_share_navigation() {
+        let event = ResponseEvent.share
+        let jsonObject = ["text":"aaa", "url": "https://getdreams.com"]
+
+        subject.webServiceDidReceiveMessage(service: service, event: event, jsonObject:  jsonObject)
+
+        XCTAssertEqual(navigationMock.presentViewControllers.count, 1)
+        XCTAssertTrue(navigationMock.presentViewControllers.first is UIActivityViewController)
     }
     
     func test_send_serviceReceivedEvents() {

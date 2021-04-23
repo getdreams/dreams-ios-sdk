@@ -16,6 +16,7 @@ import Foundation
 public protocol DreamsNetworkInteracting {
     func didLoad()
     func use(webView: WebViewProtocol)
+    func use(navigation: ViewControllerPresenting)
     func use(delegate: DreamsDelegate)
     func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
     func update(locale: Locale)

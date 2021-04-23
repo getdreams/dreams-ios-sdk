@@ -56,6 +56,13 @@ public protocol DreamsDelegateUsing: class {
     func use(delegate: DreamsDelegate)
 }
 
+public protocol ViewControllerPresenting: class {
+    /**
+     This method is used internally.
+     */
+    func present(viewController: UIViewController)
+}
+
 public class DreamsViewController: UIViewController {
 
     private lazy var webView: WKWebView = {
@@ -94,6 +101,7 @@ public class DreamsViewController: UIViewController {
     
     public override func viewDidLoad() {
         interaction.didLoad()
+        interaction.use(navigation: self)
     }
     
 }
@@ -140,5 +148,12 @@ extension DreamsViewController: LocaleUpdating {
      */
     public func update(locale: Locale) {
         interaction.update(locale: locale)
+    }
+}
+
+// MARK: ViewControllerPresenting (used internally)
+extension DreamsViewController: ViewControllerPresenting {
+    public func present(viewController: UIViewController) {
+        present(viewController, animated: true, completion: nil)
     }
 }

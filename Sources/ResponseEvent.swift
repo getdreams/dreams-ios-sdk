@@ -19,4 +19,5 @@ enum ResponseEvent: String, CaseIterable {
     case onTelemetryEvent
     case onAccountProvisionRequested
     case onExitRequested
+    case share
 }
