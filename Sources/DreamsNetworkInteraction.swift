@@ -50,8 +50,8 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         self.navigation = navigation
     }
     
-    public func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
-        loadBaseURL(credentials: credentials, locale: locale, completion: completion)
+    public func launch(credentials: DreamsCredentials, locale: Locale, location: String?, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
+        loadBaseURL(credentials: credentials, locale: locale, location: location, completion: completion)
     }
     
     public func update(locale: Locale) {
@@ -117,15 +117,23 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         navigation?.present(viewController: activity)
     }
     
-    private func loadBaseURL(credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
+    private func loadBaseURL(credentials: DreamsCredentials, locale: Locale, location: String?, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
     
         let body = [
             "token": credentials.idToken,
             "client_id": configuration.clientId,
             "locale": localeFormatter.format(locale: locale, format: .bcp47),
         ]
-        
-        let verifyTokenURL = configuration.baseURL.appendingPathComponent("/users/verify_token")
+
+        var urlComps = URLComponents(url: configuration.baseURL.appendingPathComponent("/users/verify_token"), resolvingAgainstBaseURL: true)
+
+        if let location = location {
+            var queryItems: [URLQueryItem] = []
+            queryItems.append(URLQueryItem(name: "location", value: location))
+            urlComps?.queryItems = queryItems
+        }
+
+        let verifyTokenURL = urlComps?.url ?? configuration.baseURL
 
         webService.load(url: verifyTokenURL, method: "POST", body: body, completion: completion)
     }

@@ -12,18 +12,31 @@
 import UIKit
 import WebKit
 
-public protocol DreamsLaunching: class {
+public protocol DreamsLaunching: AnyObject {
     /**
      This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
-     
-     - parameter idToken: User idToken
+
+     - parameter with: credentials - DreamsCredentials
      - parameter locale: Selected Locale
      - parameter completion: Called when Dreams did launch successfuly or failed
-     
+
      - Attention: This method MUST be called on main thread, when called from background threads it will crash to avoid undefined behaviour.
-        
+
      */
     func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
+
+    /**
+     This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
+
+     - parameter with: credentials - DreamsCredentials
+     - parameter locale: Selected Locale
+     - parameter completion: Called when Dreams did launch successfuly or failed
+     - parameter location: the host app can ask DreamsSDK to start Dreams with certain location
+
+     - Attention: This method MUST be called on main thread, when called from background threads it will crash to avoid undefined behaviour.
+
+     */
+    func launch(with credentials: DreamsCredentials, locale: Locale, location: String, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
 }
 
 public extension DreamsLaunching {
@@ -38,9 +51,23 @@ public extension DreamsLaunching {
     func launch(with credentials: DreamsCredentials, locale: Locale) {
         launch(with: credentials, locale: locale, completion: nil)
     }
+
+    /**
+     This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
+
+     - parameter with: credentials - DreamsCredentials
+     - parameter locale: Selected Locale
+     - parameter location: the host app can ask DreamsSDK to start Dreams with certain location
+
+     - Attention: This method MUST be called on main thread, when called from background threads it will crash to avoid undefined behaviour.
+
+     */
+    func launch(with credentials: DreamsCredentials, locale: Locale, location: String) {
+        launch(with: credentials, locale: locale, location: location, completion: nil)
+    }
 }
 
-public protocol LocaleUpdating: class {
+public protocol LocaleUpdating: AnyObject {
     /**
      This method can be called at all times after the DreamsViewController is presented, the Dreams interface will update to selected Locale.
      - parameter locale: Selected Locale
@@ -48,7 +75,7 @@ public protocol LocaleUpdating: class {
     func update(locale: Locale)
 }
 
-public protocol DreamsDelegateUsing: class {
+public protocol DreamsDelegateUsing: AnyObject {
     /**
      This method MUST be called before the ViewController is presented, otherwise delegate won't be able to mediate.
      - parameter delegate : DreamsDelegate handling events
@@ -56,7 +83,7 @@ public protocol DreamsDelegateUsing: class {
     func use(delegate: DreamsDelegate)
 }
 
-public protocol ViewControllerPresenting: class {
+public protocol ViewControllerPresenting: AnyObject {
     /**
      This method is used internally.
      */
@@ -108,7 +135,6 @@ public class DreamsViewController: UIViewController {
 
 // MARK: DreamsLaunching
 extension DreamsViewController: DreamsLaunching {
-
     /**
      This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
      
@@ -123,7 +149,22 @@ extension DreamsViewController: DreamsLaunching {
         guard Thread.isMainThread else {
             fatalError("Launch can be only called on main thread!")
         }
-        interaction.launch(with: credentials, locale: locale, completion: completion)
+        interaction.launch(credentials: credentials, locale: locale, location: nil, completion: completion)
+    }
+
+    /**
+     This method MUST be called just after the DreamsViewController is presented, the Dreams interface will be launched for given credentials.
+
+     - parameter location: the host app can ask DreamsSDK to start Dreams with certain location
+     - parameter with: credentials - DreamsCredentials
+     - parameter locale: Selected Locale
+     - parameter completion: Called when Dreams did launch successfuly or failed
+
+     - Attention: This method MUST be called on main thread, when called from background threads it will crash to avoid undefined behaviour.
+
+     */
+    public func launch(with credentials: DreamsCredentials, locale: Locale, location: String, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
+        interaction.launch(credentials: credentials, locale: locale, location: location, completion: completion)
     }
 }
 
