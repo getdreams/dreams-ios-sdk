@@ -15,7 +15,7 @@ import Foundation
  The delegate for the `Dreams` SDK.
  */
 
-public protocol DreamsDelegate: class {
+public protocol DreamsDelegate: AnyObject {
     
     /**
      Called when the credentials has expired.
