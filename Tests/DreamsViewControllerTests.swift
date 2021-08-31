@@ -70,6 +70,21 @@ class DreamsViewControllerTests: XCTestCase {
         XCTAssertEqual(interaction.launchLocales.first!, locale)
     }
 
+    func testLaunchWithLocation() {
+        subject = DreamsViewController(interaction: interaction)
+        let idToken = "aaa"
+        let credentials = DreamsCredentials(idToken: idToken)
+        let locale = Locale(identifier: "sv_SE")
+
+        subject.launch(with: credentials, locale: locale, location: "drop_coffee")
+
+        XCTAssertEqual(interaction.launchCredentials.count, 1)
+        XCTAssertEqual(interaction.launchCredentials.first!.idToken, credentials.idToken)
+        XCTAssertEqual(interaction.launchLocales.count, 1)
+        XCTAssertEqual(interaction.launchLocales.first!, locale)
+        XCTAssertEqual(interaction.launchLocations.first!, "drop_coffee")
+    }
+
     func testUpdateLocale() {
         subject = DreamsViewController(interaction: interaction)
         let locale = Locale(identifier: "sv_SE")

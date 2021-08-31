@@ -18,12 +18,12 @@ public protocol DreamsNetworkInteracting {
     func use(webView: WebViewProtocol)
     func use(navigation: ViewControllerPresenting)
     func use(delegate: DreamsDelegate)
-    func launch(with credentials: DreamsCredentials, locale: Locale, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
+    func launch(credentials: DreamsCredentials, locale: Locale, location: String?, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
     func update(locale: Locale)
 }
 
 extension DreamsNetworkInteracting {
-    func launch(with credentials: DreamsCredentials, locale: Locale) {
-        launch(with: credentials, locale: locale, completion: nil)
+    func launch(credentials: DreamsCredentials, locale: Locale) {
+        launch(credentials: credentials, locale: locale, location: nil, completion: nil)
     }
 }
