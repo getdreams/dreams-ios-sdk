@@ -66,7 +66,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         let localeId = "sv"
         let locale = Locale(identifier: localeId)
 
-        subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: locale)
+        subject.launch(credentials: DreamsCredentials(idToken: "idToken"), locale: locale)
 
         XCTAssertEqual(localeFormatter.formatsGiven.count, 1)
         XCTAssertEqual(localeFormatter.localesGiven.count, 1)
@@ -77,7 +77,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
     func test_launch_calledCorrectRequest() {
         localeFormatter.returnString = "sv"
 
-        subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv"))
+        subject.launch(credentials: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv"))
 
         let expectedBody: [String: Any] = ["token": "idToken", "locale": "sv", "client_id": "clientId"]
         let httpBody = service.load_bodys.first!
@@ -88,13 +88,28 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         XCTAssertEqual(service.load_methods.first, "POST")
         XCTAssertEqual(NSDictionary(dictionary: expectedBody), NSDictionary(dictionary: httpBody))
     }
+
+    func test_launchWithLocation_calledCorrectRequest() {
+        localeFormatter.returnString = "sv"
+
+        subject.launch(credentials: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv"), location: "drybones", completion: nil)
+
+        let expectedBody: [String: Any] = ["token": "idToken", "locale": "sv", "client_id": "clientId"]
+        let httpBody = service.load_bodys.first!
+        XCTAssertEqual(service.load_urls.count, 1)
+        XCTAssertEqual(service.load_bodys.count, 1)
+        XCTAssertEqual(service.load_methods.count, 1)
+        XCTAssertEqual(service.load_urls.first?.absoluteString, "https://www.getdreams.com/users/verify_token?location=drybones")
+        XCTAssertEqual(service.load_methods.first, "POST")
+        XCTAssertEqual(NSDictionary(dictionary: expectedBody), NSDictionary(dictionary: httpBody))
+    }
     
     func test_launch_passedCompletionToWebService() {
         let completion: (Result<Void, DreamsLaunchingError>) -> Void = { result in
             
         }
 
-        subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv_SE"), completion: completion)
+        subject.launch(credentials: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv_SE"), location: nil, completion: completion)
 
         XCTAssertEqual(service.completions.count, 1)
     }
@@ -105,7 +120,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
             called = true
         }
 
-        subject.launch(with: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv_SE"), completion: completion)
+        subject.launch(credentials: DreamsCredentials(idToken: "idToken"), locale: Locale(identifier: "sv_SE"), location: nil, completion: completion)
         service.completions.first!(.success(()))
         
         XCTAssertTrue(called)
