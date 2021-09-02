@@ -91,6 +91,20 @@ present(viewController, animated: true) {
 
 ```
 
+## Location
+
+### Launching with specific location within Dreams
+
+```swift
+viewController.launch(with: userCredentials, locale: Locale.current, location: "/some/location") { result in }
+```
+
+### Navigating to location within Dreams after launch
+
+```swift
+viewController.navigateTo(location: "/some/location")
+```
+
 ### Safe Area
 
 Dreams interface is leveraging the Safe Area Layout Guides information to adjust the interface to different screens. Do not disable `Use Safe Area Layout Guides` in Interface Builder. 
