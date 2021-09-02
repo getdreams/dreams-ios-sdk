@@ -67,6 +67,15 @@ public extension DreamsLaunching {
     }
 }
 
+public protocol NavigatingToLocation: AnyObject {
+    /**
+     This method can be only called when Dreams is already presented, calls before `launch` method completion will be ignored.
+
+     - parameter location: - String describing location inside Dreams
+     */
+    func navigateTo(location: String)
+}
+
 public protocol LocaleUpdating: AnyObject {
     /**
      This method can be called at all times after the DreamsViewController is presented, the Dreams interface will update to selected Locale.
@@ -165,6 +174,21 @@ extension DreamsViewController: DreamsLaunching {
      */
     public func launch(with credentials: DreamsCredentials, locale: Locale, location: String, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
         interaction.launch(credentials: credentials, locale: locale, location: location, completion: completion)
+    }
+}
+
+// MARK: NavigatingToLocation
+extension DreamsViewController: NavigatingToLocation {
+
+    /**
+     This method can be only called when Dreams is already presented, calls before `launch` method completion will be ignored and the function
+     will return false.
+
+     - parameter location: - String describing location inside Dreams
+
+     */
+    public func navigateTo(location: String) {
+        interaction.navigateTo(location: location)
     }
 }
 

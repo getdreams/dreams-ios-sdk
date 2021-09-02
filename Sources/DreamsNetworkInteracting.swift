@@ -20,6 +20,7 @@ public protocol DreamsNetworkInteracting {
     func use(delegate: DreamsDelegate)
     func launch(credentials: DreamsCredentials, locale: Locale, location: String?, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?)
     func update(locale: Locale)
+    func navigateTo(location: String)
 }
 
 extension DreamsNetworkInteracting {
