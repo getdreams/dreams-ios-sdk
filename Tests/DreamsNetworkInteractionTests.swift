@@ -224,12 +224,23 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         XCTAssertEqual(service.events.first, event)
     }
     
-    func test_uptadeLocale_passedToInteraction() {
+    func test_uptadeLocale_passedToService() {
         let event = Request.updateLocale
         
         subject.update(locale: Locale(identifier: "sv_SE"))
         
         XCTAssertEqual(service.events.count, 1)
         XCTAssertEqual(service.events.first, event)
+    }
+
+    func test_navigateTo_passedToService() {
+        let event = Request.navigateTo
+
+        subject.navigateTo(location: "drop_coffee")
+
+        XCTAssertEqual(service.events.count, 1)
+        XCTAssertEqual(service.events.first, event)
+        XCTAssertEqual(service.jsonObjects.count, 1)
+        XCTAssertEqual((service.jsonObjects.first as? [String: String])?["location"], "drop_coffee")
     }
 }

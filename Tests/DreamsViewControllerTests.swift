@@ -95,4 +95,12 @@ class DreamsViewControllerTests: XCTestCase {
         XCTAssertEqual(interaction.updateLocales.first!, locale)
     }
 
+    func testNavigateToLocation() {
+        subject = DreamsViewController(interaction: interaction)
+
+        subject.navigateTo(location: "drop_coffee")
+
+        XCTAssertEqual(interaction.navigateToLocations.count, 1)
+        XCTAssertEqual(interaction.navigateToLocations.first!, "drop_coffee")
+    }
 }

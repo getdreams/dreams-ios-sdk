@@ -58,6 +58,11 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         let jsonObject: JSONObject = ["locale": locale.identifier]
         send(event: .updateLocale, with: jsonObject)
     }
+
+    public func navigateTo(location: String) {
+        let jsonObject: JSONObject = ["location": location]
+        send(event: .navigateTo, with: jsonObject)
+    }
     
     // MARK: Private
 
