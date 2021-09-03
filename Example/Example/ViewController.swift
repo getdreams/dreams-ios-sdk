@@ -30,6 +30,32 @@ class ViewController: UIViewController {
             }
         }
     }
+
+    @IBAction func presentDreamsWithLocation() {
+        let viewController = DreamsViewController()
+        let userCredentials = DreamsCredentials(idToken: "idToken")
+        viewController.use(delegate: self)
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true) {
+            viewController.launch(with: userCredentials, locale: Locale.current, location: "/example/location") { result in
+                switch result {
+                case .success:
+                    () // Dreams did launch successfully
+                case .failure(let launchError):
+                    switch launchError {
+                    case .alreadyLaunched:
+                        () // You cannot launch Dreams when launching is in progess
+                    case .invalidCredentials:
+                        () // The provided credentials were invalid
+                    case .httpErrorStatus(let httpStatus):
+                        print(httpStatus) // The server returned a HTTP error status
+                    case .requestFailure(let error):
+                        print(error) // Other server errors (NSError instance)
+                    }
+                }
+            }
+        }
+    }
 }
 
 //

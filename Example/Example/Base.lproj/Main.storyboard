@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,11 +23,20 @@
                                     <action selector="presentDreams" destination="BYZ-38-t0r" eventType="touchUpInside" id="NUq-6R-LpI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gr7-lu-4AC">
+                                <rect key="frame" x="131.5" y="471" width="151" height="30"/>
+                                <state key="normal" title="Present With Location"/>
+                                <connections>
+                                    <action selector="presentDreamsWithLocation" destination="BYZ-38-t0r" eventType="touchUpInside" id="pQS-kn-map"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="by4-vW-g5C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IKn-8J-Vwx"/>
+                            <constraint firstItem="gr7-lu-4AC" firstAttribute="centerX" secondItem="by4-vW-g5C" secondAttribute="centerX" id="kz3-oG-eJC"/>
+                            <constraint firstItem="gr7-lu-4AC" firstAttribute="top" secondItem="by4-vW-g5C" secondAttribute="bottom" constant="8" symbolic="YES" id="pdQ-jR-D70"/>
                             <constraint firstItem="by4-vW-g5C" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="sgI-qd-Gcb"/>
                         </constraints>
                     </view>
