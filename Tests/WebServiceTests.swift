@@ -17,7 +17,7 @@ class WebServiceTests: XCTestCase {
     
     override class func setUp() {
         super.setUp()
-        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://www.getdreams.com")!))
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://www.dreamstech.com")!))
     }
 
     func testLoadURL1() {
@@ -25,7 +25,7 @@ class WebServiceTests: XCTestCase {
         let service = WebService()
         service.delegate = spyDelegate
 
-        let mockURL = URL(string: "https://getdreams.com")!
+        let mockURL = URL(string: "https://dreamstech.com")!
         
         service.load(url: mockURL, method: "POST", body: ["test": "test"]) { result in
             // Nothing
@@ -45,7 +45,7 @@ class WebServiceTests: XCTestCase {
         let service = WebService()
         service.delegate = spyDelegate
 
-        let mockURL = URL(string: "https://getdreams.com")!
+        let mockURL = URL(string: "https://dreamstech.com")!
         service.load(url: mockURL, method: "GET") { result in
             // Nothing
         }
@@ -89,7 +89,7 @@ class WebServiceTests: XCTestCase {
         let spyDelegate = WebServiceDelegateSpy()
         let service = WebService()
         service.delegate = spyDelegate
-        let mockURL = URL(string: "https://getdreams.com")!
+        let mockURL = URL(string: "https://dreamstech.com")!
         let webView = WKWebView()
         let urlResponse = HTTPURLResponse(url: mockURL, statusCode: 200, httpVersion: nil, headerFields: nil)
         let navigationResponse = FakeResponseMock(fakeResponse: urlResponse!)
@@ -113,7 +113,7 @@ class WebServiceTests: XCTestCase {
         let spyDelegate = WebServiceDelegateSpy()
         let service = WebService()
         service.delegate = spyDelegate
-        let mockURL = URL(string: "https://getdreams.com")!
+        let mockURL = URL(string: "https://dreamstech.com")!
         let webView = WKWebView()
         let urlResponse = HTTPURLResponse(url: mockURL, statusCode: 422, httpVersion: nil, headerFields: nil)
         let navigationResponse = FakeResponseMock(fakeResponse: urlResponse!)
@@ -138,7 +138,7 @@ class WebServiceTests: XCTestCase {
         let spyDelegate = WebServiceDelegateSpy()
         let service = WebService()
         service.delegate = spyDelegate
-        let mockURL = URL(string: "https://getdreams.com")!
+        let mockURL = URL(string: "https://dreamstech.com")!
         let webView = WKWebView()
         let status = 500
         let urlResponse = HTTPURLResponse(url: mockURL, statusCode: status, httpVersion: nil, headerFields: nil)
@@ -169,7 +169,7 @@ class WebServiceTests: XCTestCase {
         let spyDelegate = WebServiceDelegateSpy()
         let service = WebService()
         service.delegate = spyDelegate
-        let mockURL = URL(string: "https://getdreams.com")!
+        let mockURL = URL(string: "https://dreamstech.com")!
         let webView = WKWebView()
         let error = NSError(domain: "BLABLA", code: 0, userInfo: nil)
         let navigation = MockNavigation.swizzleDeinitInWKNavigation()

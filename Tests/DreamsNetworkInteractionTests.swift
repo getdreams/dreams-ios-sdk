@@ -34,7 +34,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
     
     override func setUpWithError() throws {
         let configuration = DreamsConfiguration(clientId: "clientId",
-                                                baseURL: URL(string: "https://www.getdreams.com")!)
+                                                baseURL: URL(string: "https://www.dreamstech.com")!)
         service = WebServiceSpy()
         localeFormatter = LocaleFormatterMock()
         subject = DreamsNetworkInteraction(configuration: configuration,
@@ -84,7 +84,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         XCTAssertEqual(service.load_urls.count, 1)
         XCTAssertEqual(service.load_bodys.count, 1)
         XCTAssertEqual(service.load_methods.count, 1)
-        XCTAssertEqual(service.load_urls.first?.absoluteString, "https://www.getdreams.com/users/verify_token")
+        XCTAssertEqual(service.load_urls.first?.absoluteString, "https://www.dreamstech.com/users/verify_token")
         XCTAssertEqual(service.load_methods.first, "POST")
         XCTAssertEqual(NSDictionary(dictionary: expectedBody), NSDictionary(dictionary: httpBody))
     }
@@ -99,7 +99,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
         XCTAssertEqual(service.load_urls.count, 1)
         XCTAssertEqual(service.load_bodys.count, 1)
         XCTAssertEqual(service.load_methods.count, 1)
-        XCTAssertEqual(service.load_urls.first?.absoluteString, "https://www.getdreams.com/users/verify_token?location=drybones")
+        XCTAssertEqual(service.load_urls.first?.absoluteString, "https://www.dreamstech.com/users/verify_token?location=drybones")
         XCTAssertEqual(service.load_methods.first, "POST")
         XCTAssertEqual(NSDictionary(dictionary: expectedBody), NSDictionary(dictionary: httpBody))
     }
@@ -127,7 +127,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
     }
     
     func test_webServiceDidPrepareRequest_requestedWebView() {
-        let request = URLRequest(url: URL(string: "https://www.getdreams.com")!)
+        let request = URLRequest(url: URL(string: "https://www.dreamstech.com")!)
         subject.webServiceDidPrepareRequest(service: service, urlRequest: request)
         
         XCTAssertEqual(webView.requests.count, 1)
@@ -207,7 +207,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
 
     func test_webServiceDidReceiveMessage_share_navigation() {
         let event = ResponseEvent.share
-        let jsonObject = ["text":"aaa", "url": "https://getdreams.com"]
+        let jsonObject = ["text":"aaa", "url": "https://dreamstech.com"]
 
         subject.webServiceDidReceiveMessage(service: service, event: event, jsonObject:  jsonObject)
 

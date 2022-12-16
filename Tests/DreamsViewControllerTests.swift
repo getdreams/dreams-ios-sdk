@@ -24,12 +24,12 @@ class DreamsViewControllerTests: XCTestCase {
     }
     
     func testFromInit() {
-        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!))
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://dreamstech.com")!))
         subject = DreamsViewController()
     }
     
     func testFromNib() {
-        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!))
+        Dreams.configure(DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://dreamstech.com")!))
         subject = DreamsViewController(nibName: nil, bundle: nil)
     }
     
