@@ -14,7 +14,7 @@ import XCTest
 
 class DreamsNetworkInteractionBuilderTests: XCTestCase {
     func testBuildWithConfiguration() {
-        let configuration = DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://getdreams.com")!)
+        let configuration = DreamsConfiguration(clientId: "clientId", baseURL: URL(string: "https://dreamstech.com")!)
         
         let output = DreamsNetworkInteractionBuilder.build(configuration: configuration)
         
