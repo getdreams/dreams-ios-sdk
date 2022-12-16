@@ -16,7 +16,7 @@ import Foundation
  */
 
 public protocol DreamsDelegate: AnyObject {
-    
+
     /**
      Called when the credentials has expired.
      */
@@ -41,4 +41,10 @@ public protocol DreamsDelegate: AnyObject {
      Use this delegate callback to close or dismiss the dreams viewcontroller.
      */
     func handleExitRequest()
+    
+    /**
+        Called when a transfer requires a consent.
+     */
+
+    func handleDreamsTransferConsentRequested(requestId: String, consentId: String, completion: @escaping (Result<TransferConsentSuccess, TransferConsentError>) -> Void)
 }

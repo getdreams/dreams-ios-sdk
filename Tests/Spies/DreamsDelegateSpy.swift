@@ -18,8 +18,8 @@ final class DreamsDelegateSpy: DreamsDelegate {
     var handleDreamsTelemetryEventNames: [String] = []
     var handleDreamsTelemetryEventPayloads: [[String : Any]] = []
     var handleDreamsAccountProvisionInitiatedCompletions: [() -> Void] = []
+    var handleDreamsTransferConsentRequestedCompletions: [(String, String, String) -> Void] = []
     var handleExitRequestCount = 0
-    
     
     func handleDreamsCredentialsExpired(completion: @escaping (DreamsCredentials) -> Void) {
         handleDreamsCredentialsExpiredCompletions.append(completion)
@@ -32,6 +32,14 @@ final class DreamsDelegateSpy: DreamsDelegate {
     
     func handleDreamsAccountProvisionInitiated(completion: @escaping () -> Void) {
         handleDreamsAccountProvisionInitiatedCompletions.append(completion)
+    }
+    
+    func handleDreamsTransferConsentRequested(requestId: String, consentId: String, completion: @escaping (Result<TransferConsentSuccess, TransferConsentError>) -> Void) {
+        if (consentId == "invalid fail me") {
+            completion(.failure(TransferConsentError(requestId: requestId, consentId: consentId)))
+        } else {
+            completion(.success(TransferConsentSuccess(requestId: requestId, consentId: consentId, consentRef: "test consent ref")))
+        }
     }
     
     func handleExitRequest() {

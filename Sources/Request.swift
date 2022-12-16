@@ -19,4 +19,6 @@ enum Request: String {
     case updateLocale
     case navigateTo
     case accountProvisionInitiated
+    case transferConsentSucceeded
+    case transferConsentCancelled
 }

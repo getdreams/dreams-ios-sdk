@@ -19,29 +19,29 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
     private let webService: WebServiceType
     private let configuration: DreamsConfiguration
     private let localeFormatter: LocaleFormatting
-    
+
     private weak var webView: WebViewProtocol!
     private weak var delegate: DreamsDelegate?
     private weak var navigation: ViewControllerPresenting?
-    
+
     init(configuration: DreamsConfiguration, webService: WebServiceType, localeFormatter: LocaleFormatting) {
         self.configuration = configuration
         self.webService = webService
         self.localeFormatter = localeFormatter
     }
-    
+
     // MARK: Public
-    
+
     public func didLoad() {
         webService.delegate = self
     }
-    
+
     public func use(webView: WebViewProtocol) {
         self.webView = webView
         setUpUserContentController()
         setUpNavigationDelegate()
     }
-    
+
     public func use(delegate: DreamsDelegate) {
         self.delegate = delegate
     }
@@ -49,11 +49,11 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
     public func use(navigation: ViewControllerPresenting) {
         self.navigation = navigation
     }
-    
+
     public func launch(credentials: DreamsCredentials, locale: Locale, location: String?, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
         loadBaseURL(credentials: credentials, locale: locale, location: location, completion: completion)
     }
-    
+
     public func update(locale: Locale) {
         let jsonObject: JSONObject = ["locale": locale.identifier]
         send(event: .updateLocale, with: jsonObject)
@@ -63,7 +63,7 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         let jsonObject: JSONObject = ["location": location]
         send(event: .navigateTo, with: jsonObject)
     }
-    
+
     // MARK: Private
 
     private func handle(event: ResponseEvent, with jsonObject: JSONObject?) {
@@ -89,9 +89,22 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
             let title = jsonObject?["title"] as? String
             let url = jsonObject?["url"] as? String
             share(text: text, title: title, urlString: url)
+        case .onTransferConsentRequested:
+            guard let requestIdInput = jsonObject?["requestId"] as? String else { return }
+            guard let consentIdInput = jsonObject?["consentId"] as? String else { return }
+
+            delegate?.handleDreamsTransferConsentRequested(requestId: requestIdInput, consentId: consentIdInput) { result in
+                switch result {
+                    case .success(let data):
+                    self.transferConsentRequestSucceeded(requestId: data.requestId, consentId: data.consentId, consentRef: data.consentRef)
+
+                    case .failure(let err):
+                    self.transferConsentRequestCancelled(requestId: err.requestId, consentId: err.consentId)
+                }
+            }
         }
     }
-    
+
     private func update(idToken: String, requestId: String) {
         let jsonObject: JSONObject = ["idToken": idToken, "requestId":  requestId]
         send(event: .updateIdToken, with: jsonObject)
@@ -101,7 +114,19 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         let jsonObject: JSONObject = ["requestId": requestId]
         send(event: .accountProvisionInitiated, with: jsonObject)
     }
-    
+
+    private func transferConsentRequestSucceeded(requestId: String, consentId: String, consentRef: String) {
+        let jsonObject: JSONObject = ["requestId": requestId, "consentId": consentId, "consentRef": consentRef]
+
+        send(event: .transferConsentSucceeded, with: jsonObject)
+    }
+
+    private func transferConsentRequestCancelled(requestId: String, consentId: String) {
+        let jsonObject: JSONObject = ["requestId": requestId, "consentId": consentId]
+
+        send(event: .transferConsentCancelled, with: jsonObject)
+    }
+
     private func setUpUserContentController() {
         ResponseEvent.allCases.forEach {
            webView.add(webService, name: $0.rawValue)
@@ -121,7 +146,7 @@ public final class DreamsNetworkInteraction: DreamsNetworkInteracting {
         let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
         navigation?.present(viewController: activity)
     }
-    
+
     private func loadBaseURL(credentials: DreamsCredentials, locale: Locale, location: String?, completion: ((Result<Void, DreamsLaunchingError>) -> Void)?) {
     
         let body = [

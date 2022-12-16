@@ -59,7 +59,7 @@ final class DreamsNetworkInteractionTests: XCTestCase {
     func test_didLoad_addedHandlers() {
         subject.didLoad()
         
-        XCTAssertEqual(webView.scriptMessageHandlers.count, 5)
+        XCTAssertEqual(webView.scriptMessageHandlers.count, 6)
     }
 
     func test_launch_didCallLocaleFormatter() {
@@ -213,6 +213,32 @@ final class DreamsNetworkInteractionTests: XCTestCase {
 
         XCTAssertEqual(navigationMock.presentViewControllers.count, 1)
         XCTAssertTrue(navigationMock.presentViewControllers.first is UIActivityViewController)
+    }
+    
+    func test_webServiceDidReceiveMessage_onTransferConsentRequested_delegatePerformedACallSucceeded() {
+        let event = ResponseEvent.onTransferConsentRequested
+        let jsonObject =  ["requestId": "test request id", "consentId": "test consent id"]
+        
+        subject.webServiceDidReceiveMessage(service: service, event: event, jsonObject: jsonObject)
+        
+        
+        let jsonObjectReturned =  ["requestId": "test request id", "consentId": "test consent id", "consentRef": "test consent ref"]
+        XCTAssertEqual(service.events.count, 1)
+        XCTAssertEqual(service.events.first, .transferConsentSucceeded)
+        XCTAssertEqual(NSDictionary(dictionary: service.jsonObjects.first!), NSDictionary(dictionary: jsonObjectReturned))
+    }
+    
+    func test_webServiceDidReceiveMessage_onTransferConsentRequested_delegatePerformedACallCancelled() {
+        let event = ResponseEvent.onTransferConsentRequested
+        let jsonObject =  ["requestId": "test request id", "consentId": "invalid fail me"]
+        
+        subject.webServiceDidReceiveMessage(service: service, event: event, jsonObject: jsonObject)
+        
+        
+        let jsonObjectReturned =  ["requestId": "test request id", "consentId": "invalid fail me"]
+        XCTAssertEqual(service.events.count, 1)
+        XCTAssertEqual(service.events.first, .transferConsentCancelled)
+        XCTAssertEqual(NSDictionary(dictionary: service.jsonObjects.first!), NSDictionary(dictionary: jsonObjectReturned))
     }
     
     func test_send_serviceReceivedEvents() {

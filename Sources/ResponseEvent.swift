@@ -20,4 +20,5 @@ enum ResponseEvent: String, CaseIterable {
     case onAccountProvisionRequested
     case onExitRequested
     case share
+    case onTransferConsentRequested
 }
