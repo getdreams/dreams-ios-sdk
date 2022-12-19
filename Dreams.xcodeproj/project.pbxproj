@@ -53,7 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A02FC0025C19DBC0080A67E /* Dreams.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dreams.podspec; sourceTree = "<group>"; };
+		1A02FC0025C19DBC0080A67E /* DreamsEnterpriseSDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = DreamsEnterpriseSDK.podspec; sourceTree = "<group>"; };
 		1A0C2C8925AC7F9F00279C0C /* DreamsNetworkInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsNetworkInteraction.swift; sourceTree = "<group>"; };
 		1A0C2C8D25AC7FD900279C0C /* DreamsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsConfiguration.swift; sourceTree = "<group>"; };
 		1A0C2C9B25AC9C9100279C0C /* DreamsCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamsCredentials.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 		FA343FE2251CDD950073F33E = {
 			isa = PBXGroup;
 			children = (
-				1A02FC0025C19DBC0080A67E /* Dreams.podspec */,
+				1A02FC0025C19DBC0080A67E /* DreamsEnterpriseSDK.podspec */,
 				1AAC42D525B0AFE200A56457 /* README.md */,
 				FA343FEE251CDD950073F33E /* Sources */,
 				FA6CD8E02525EB2700E68FA7 /* Tests */,
